@@ -32,9 +32,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Set the working directory
 WORKDIR /code
 
-# Copy necessary files for migrations
-COPY --from=builder --chown=app:app /app/src/app /code/app
-
 # Run migrations
 CMD ["alembic", "upgrade", "head"]
 
@@ -56,9 +53,6 @@ USER app
 
 # Set the working directory
 WORKDIR /code
-
-    # Copy application code
-COPY --from=builder --chown=app:app /app/src/app /code/app
 
 # Expose the port the app runs on
 EXPOSE 8000
