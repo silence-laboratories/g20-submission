@@ -54,6 +54,18 @@ USER app
 # Set the working directory
 WORKDIR /code
 
+# Copy application code and configuration files directly into the image instead of relying on volume mounts
+COPY --chown=app:app ./src/app /code/app
+COPY --chown=app:app ./src/.env.production.example /code/.env
+
+# Also copy other necessary configuration files
+COPY --chown=app:app ./src/alembic.ini /code/alembic.ini
+COPY --chown=app:app ./src/migrations /code/migrations
+
+# Expose the application port
+EXPOSE 8000
+
 # -------- replace with comment to run with gunicorn --------
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Use uvicorn without --reload for production use in standalone container
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 # CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000"]
