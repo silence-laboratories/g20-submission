@@ -15,9 +15,12 @@ services:
     #   - "8000"
     depends_on:
       - db
+      - migrate
     volumes:
       - ./src/app:/code/app
       - ./src/.env:/code/.env
+      - ./src/alembic.ini:/code/alembic.ini
+      - ./src/migrations:/code/migrations
 
   db:
     image: postgres:13
@@ -30,6 +33,11 @@ services:
       - "5432"
     ports:
      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
   migrate:
     build:
@@ -38,7 +46,8 @@ services:
     env_file:
       - ./src/.env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     command: alembic upgrade head
 
 volumes:
