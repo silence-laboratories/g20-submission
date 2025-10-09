@@ -33,9 +33,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 WORKDIR /code
 
 # Copy necessary files for migrations
-COPY --from=builder /app/src/alembic.ini /code/alembic.ini
-COPY --from=builder /app/src/migrations /code/migrations
-COPY --from=builder /app/src/app /code/app
+COPY --from=builder --chown=app:app /app/src /code
 
 # Run migrations
 CMD ["alembic", "upgrade", "head"]
