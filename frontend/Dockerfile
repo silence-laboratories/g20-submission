@@ -1,6 +1,6 @@
 # Multi-stage Dockerfile for Next.js application
 # Stage 1: Build stage
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -10,13 +10,10 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else npm ci; \
-  fi
-
+COPY package.json package-lock.json* ./
+RUN if [ -f package-lock.json ]; then npm ci; \
+    else echo "No lock file found"; exit 1; \
+    fi
 
 # Rebuild the source code only when needed
 FROM base AS builder
