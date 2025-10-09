@@ -76,7 +76,7 @@ def create_application(
         | ClientSideCacheSettings
         | EnvironmentSettings
     ),
-    create_tables_on_start: bool = False,
+    create_tables_on_start: bool = True,
     lifespan: Callable[[FastAPI], _AsyncGeneratorContextManager[Any]] | None = None,
     **kwargs: Any,
 ) -> FastAPI:
