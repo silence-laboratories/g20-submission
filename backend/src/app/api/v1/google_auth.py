@@ -76,7 +76,13 @@ async def logout(
         raise HTTPException(status_code=401, detail="User not found")
 
     # Clear sl_session cookie while sending response
-    response.delete_cookie(key="sl_session", httponly=True, secure=True, samesite="lax")
+    response.delete_cookie(
+        key="sl_session", 
+        httponly=True, 
+        secure=True, 
+        samesite="none",  # Changed to "none" for cross-origin
+        domain=".silentlaboratories.com"  # Set to your root domain with leading dot
+    )
     return {"message": "Logged out successfully"}
 
 
@@ -112,8 +118,9 @@ async def google_callback(
                 value=access_token,
                 httponly=True,
                 secure=True,
-                samesite="lax",
+                samesite="none",  # Changed to "none" for cross-origin
                 max_age=max_age,
+                domain=".silentlaboratories.com"  # Set to your root domain with leading dot
             )
             
             return {
@@ -149,8 +156,9 @@ async def google_callback(
             value=access_token,
             httponly=True,
             secure=True,
-            samesite="lax",
+            samesite="none",  # Changed to "none" for cross-origin
             max_age=max_age,
+            domain=".silentlaboratories.com"  # Set to your root domain with leading dot
         )
 
         if not existing_user:

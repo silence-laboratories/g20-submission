@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
-
+  
 // Define protected routes that require authentication
 const isProtectedRoute = (pathname: string): boolean => {
   const protectedRoutes = [
@@ -53,15 +53,22 @@ export default async function middleware(req: NextRequest) {
   // If it's a protected route, check authentication
   if (isProtectedRoute(pathname)) {
     try {
-      // Get cookies from the request
-      const cookies = req.cookies;
-      // Make API call to backend to get current user with credentials
+      // Get the session cookie from the request
+      const sessionCookie = req.cookies.get('sl_session');
+      
+      if (!sessionCookie) {
+        // No session cookie, redirect to sign-in
+        const signInUrl = new URL('/auth/sign-in', req.url);
+        return NextResponse.redirect(signInUrl);
+      }
+
+      // Make API call to backend to verify session
+      // Forward the cookie manually in the header
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}/api/v1/auth/me`,
         {
-          withCredentials: true,
           headers: {
-            Cookie: cookies.toString(),
+            Cookie: `sl_session=${sessionCookie.value}`,
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             Pragma: 'no-cache',
             Expires: '0'

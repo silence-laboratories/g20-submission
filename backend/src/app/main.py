@@ -16,6 +16,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "https://sl-compute-app.silencelaboratories.com"],  # Specify allowed origins
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PATCH"],           # Specify allowed methods
+    allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
