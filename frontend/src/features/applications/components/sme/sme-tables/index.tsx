@@ -1,7 +1,6 @@
 'use client';
 
 import { DataTable } from '@/components/ui/table/data-table';
-import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
 
 import { useDataTable } from '@/hooks/use-data-table';
 
@@ -22,7 +21,7 @@ export function ProductTable<TData, TValue>({
 
   const pageCount = Math.ceil(totalItems / pageSize);
 
-  const {getLoans} = useLoanStore();
+  const { getLoans } = useLoanStore();
   const loanDataFromStore = getLoans();
 
   console.log(loanDataFromStore);
@@ -35,9 +34,5 @@ export function ProductTable<TData, TValue>({
     debounceMs: 500
   });
 
-  return (
-    <DataTable table={table}>
-      <DataTableToolbar table={table} />
-    </DataTable>
-  );
+  return <DataTable table={table} />;
 }

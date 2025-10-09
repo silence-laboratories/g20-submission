@@ -3,6 +3,8 @@ import { withSentryConfig } from '@sentry/nextjs';
 
 // Define the base Next.js configuration
 const baseConfig: NextConfig = {
+  // Enable standalone output for Docker production builds
+  output: 'standalone',
   images: {
     remotePatterns: [
       {

@@ -8,13 +8,13 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-
-
   return (
-
-    <div className="flex space-x-2">
-      {data.insightStatus === "generated" ? <ViewInsightsDialog loan={data} /> :
-        <BankViewLoanDialog loan={data} />}
+    <div className='flex space-x-2'>
+      {data.insightStatus === 'generated' ? (
+        <ViewInsightsDialog loan={data} />
+      ) : (
+        <BankViewLoanDialog loan={data} />
+      )}
     </div>
   );
 };

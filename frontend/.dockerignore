@@ -1,0 +1,45 @@
+# Dependencies
+node_modules
+
+# Environment variables (exclude all .env files for security)
+# Pass env vars via docker-compose or docker run instead
+.env*
+!.env.example
+!env.example.txt
+
+# Next.js
+.next
+out
+
+# Development files
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage
+coverage
+*.lcov
+
+# Build outputs
+dist
+build
+
+# IDE files
+.vscode
+.idea
+
+# Sensitive data
+secrets
+config

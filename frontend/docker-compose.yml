@@ -1,0 +1,30 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Pass build-time environment variables
+        - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+        - NEXT_PUBLIC_SIGN_IN_URL=${NEXT_PUBLIC_SIGN_IN_URL}
+        - NEXT_PUBLIC_SIGN_UP_URL=${NEXT_PUBLIC_SIGN_UP_URL}
+        - NEXT_PUBLIC_AFTER_SIGN_IN_URL=${NEXT_PUBLIC_AFTER_SIGN_IN_URL}
+        - NEXT_PUBLIC_AFTER_SIGN_UP_URL=${NEXT_PUBLIC_AFTER_SIGN_UP_URL}
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+    # Optional: Connect to backend service
+    # depends_on:
+    #   - backend
+    # networks:
+    #   - app-network
+# Optional: Define a network for service communication
+# networks:
+#   app-network:
+#     driver: bridge
+

@@ -14,19 +14,16 @@ const isProtectedRoute = (pathname: string): boolean => {
     '/dashboard/insights',
     '/register'
   ];
-  
-  return protectedRoutes.some(route => pathname.startsWith(route));
+
+  return protectedRoutes.some((route) => pathname.startsWith(route));
 };
 
 // Define public routes that don't require authentication
 const isPublicRoute = (pathname: string): boolean => {
-  const publicRoutes = [
-    '/auth',
-    '/auth/sign-in',
-  ];
-  
+  const publicRoutes = ['/auth', '/auth/sign-in'];
+
   // For exact matches or routes that start with the public route
-  return publicRoutes.some(route => {
+  return publicRoutes.some((route) => {
     if (route === '/') {
       // Only match exact root path
       return pathname === '/';
@@ -37,7 +34,7 @@ const isPublicRoute = (pathname: string): boolean => {
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  
+
   // Skip middleware for static files and API routes
   if (
     pathname.startsWith('/_next') ||
@@ -64,14 +61,14 @@ export default async function middleware(req: NextRequest) {
         {
           withCredentials: true,
           headers: {
-            'Cookie': cookies.toString(),
+            Cookie: cookies.toString(),
             'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0'
+            Pragma: 'no-cache',
+            Expires: '0'
           }
         }
       );
-      
+
       if (response.data) {
         // User is authenticated, allow access
         return NextResponse.next();

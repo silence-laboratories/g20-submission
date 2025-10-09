@@ -14,13 +14,20 @@ import { useLoanStore } from '@/store/loan-store';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-
-
-export default function ConsentOTPDialog({ onSubmit, disabled, bankName, loanId }: { onSubmit: () => void, disabled: boolean, bankName: string | undefined, loanId: string | undefined }) {
-
+export default function ConsentOTPDialog({
+  onSubmit,
+  disabled,
+  bankName,
+  loanId
+}: {
+  onSubmit: () => void;
+  disabled: boolean;
+  bankName: string | undefined;
+  loanId: string | undefined;
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [otp, setOtp] = useState('');
-  const {updateConsentStatus} = useLoanStore();
+  const { updateConsentStatus } = useLoanStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,11 +40,10 @@ export default function ConsentOTPDialog({ onSubmit, disabled, bankName, loanId 
 
     if (typeof otp !== 'string') return;
 
-
-    loanId && updateConsentStatus(loanId, "approved");
+    loanId && updateConsentStatus(loanId, 'approved');
 
     setTimeout(() => {
-      toast.success("Consent approved!")
+      toast.success('Consent approved!');
       onSubmit();
       setIsSubmitting(false);
     }, 2000);
@@ -46,7 +52,11 @@ export default function ConsentOTPDialog({ onSubmit, disabled, bankName, loanId 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='secondary' className="bg-green-400 text-background hover:bg-green-500 cursor-pointer" disabled={disabled}>
+        <Button
+          variant='secondary'
+          className='text-background cursor-pointer bg-green-400 hover:bg-green-500'
+          disabled={disabled}
+        >
           Approve Consent
         </Button>
       </DialogTrigger>
@@ -54,7 +64,8 @@ export default function ConsentOTPDialog({ onSubmit, disabled, bankName, loanId 
         <DialogHeader>
           <DialogTitle>{bankName} OTP</DialogTitle>
           <DialogDescription>
-            Please enter the OTP sent to your registered phone number from {bankName} to approve consent
+            Please enter the OTP sent to your registered phone number from{' '}
+            {bankName} to approve consent
           </DialogDescription>
         </DialogHeader>
         <form
@@ -73,10 +84,16 @@ export default function ConsentOTPDialog({ onSubmit, disabled, bankName, loanId 
           </div>
         </form>
         <DialogFooter>
-          <Button type='submit' form='todo-form' size='sm' className='cursor-pointer' disabled={isSubmitting || otp.length !== 6}>
+          <Button
+            type='submit'
+            form='todo-form'
+            size='sm'
+            className='cursor-pointer'
+            disabled={isSubmitting || otp.length !== 6}
+          >
             {isSubmitting ? (
-              <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              <div className='flex items-center justify-center'>
+                <div className='mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white'></div>
                 Approving consent...
               </div>
             ) : (

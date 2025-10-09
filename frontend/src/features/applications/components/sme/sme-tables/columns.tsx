@@ -2,7 +2,15 @@
 import { Badge } from '@/components/ui/badge';
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
 import { Column, ColumnDef } from '@tanstack/react-table';
-import { CheckCircle2, Clock, DollarSign, FileText, Building, Calendar, Shield } from 'lucide-react';
+import {
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  FileText,
+  Building,
+  Calendar,
+  Shield
+} from 'lucide-react';
 import { CellAction } from './cell-action';
 import { Button } from '@/components/ui/button';
 import { IconEye } from '@tabler/icons-react';
@@ -23,7 +31,7 @@ export const columns: ColumnDef<Application>[] = [
     id: 'id',
     accessorKey: 'id',
     header: ({ column }: { column: Column<Application, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Application ID'/>
+      <DataTableColumnHeader column={column} title='Application ID' />
     ),
     cell: ({ cell }) => (
       <div className='font-mono text-sm'>
@@ -31,7 +39,7 @@ export const columns: ColumnDef<Application>[] = [
       </div>
     ),
     meta: {
-      label: 'ID',
+      label: 'ID'
     }
   },
   {
@@ -42,13 +50,13 @@ export const columns: ColumnDef<Application>[] = [
     ),
     cell: ({ cell }) => (
       <div className='flex items-center gap-2'>
-        <Building className='h-4 w-4 text-muted-foreground' />
+        <Building className='text-muted-foreground h-4 w-4' />
         {cell.getValue<Application['financial_institution']>()}
       </div>
     ),
     enableColumnFilter: true,
     meta: {
-      label: 'Financial Institution',
+      label: 'Financial Institution'
     }
   },
   {
@@ -64,7 +72,7 @@ export const columns: ColumnDef<Application>[] = [
     ),
     enableColumnFilter: true,
     meta: {
-      label: 'Purpose',
+      label: 'Purpose'
     }
   },
   {
@@ -86,7 +94,7 @@ export const columns: ColumnDef<Application>[] = [
       );
     },
     meta: {
-      label: 'Amount',
+      label: 'Amount'
     }
   },
   {
@@ -97,10 +105,18 @@ export const columns: ColumnDef<Application>[] = [
     ),
     cell: ({ cell }) => {
       const status = cell.getValue<Application['consent_status']>();
-      const variant = status === 'approved' ? 'success' : 
-                     status === 'pending' ? 'secondary' : 'destructive';
-      const icon = status === 'approved' ? CheckCircle2 : 
-                   status === 'pending' ? Clock : Shield;
+      const variant =
+        status === 'approved'
+          ? 'success'
+          : status === 'pending'
+            ? 'secondary'
+            : 'destructive';
+      const icon =
+        status === 'approved'
+          ? CheckCircle2
+          : status === 'pending'
+            ? Clock
+            : Shield;
 
       const Icon = icon;
       return (
@@ -112,7 +128,7 @@ export const columns: ColumnDef<Application>[] = [
     },
     enableColumnFilter: true,
     meta: {
-      label: 'Consent Status',
+      label: 'Consent Status'
     }
   },
   {
@@ -123,12 +139,22 @@ export const columns: ColumnDef<Application>[] = [
     ),
     cell: ({ cell }) => {
       const status = cell.getValue<Application['application_status']>();
-      const variant = status === 'approved' ? 'default' : 
-                     status === 'under_review' ? 'secondary' : 
-                     status === 'pending' ? 'outline' : 'destructive';
-      const icon = status === 'approved' ? CheckCircle2 : 
-                   status === 'under_review' ? Clock : 
-                   status === 'pending' ? Clock : Shield;
+      const variant =
+        status === 'approved'
+          ? 'default'
+          : status === 'under_review'
+            ? 'secondary'
+            : status === 'pending'
+              ? 'outline'
+              : 'destructive';
+      const icon =
+        status === 'approved'
+          ? CheckCircle2
+          : status === 'under_review'
+            ? Clock
+            : status === 'pending'
+              ? Clock
+              : Shield;
 
       const Icon = icon;
       return (
@@ -140,7 +166,7 @@ export const columns: ColumnDef<Application>[] = [
     },
     enableColumnFilter: true,
     meta: {
-      label: 'Application Status',
+      label: 'Application Status'
     }
   },
   {

@@ -18,15 +18,17 @@ export function UserAvatarProfile({
   return (
     <div className='flex items-center gap-2'>
       <Avatar className={className}>
-        <AvatarImage src={user?.picture} alt={user?.name || ''} referrerPolicy="no-referrer"/>
+        <AvatarImage
+          src={user?.picture}
+          alt={user?.name || ''}
+          referrerPolicy='no-referrer'
+        />
       </Avatar>
 
       {showInfo && (
         <div className='grid flex-1 text-left text-sm leading-tight'>
           <span className='truncate font-semibold'>{user?.name || ''}</span>
-          <span className='truncate text-xs'>
-            {user?.email || ''}
-          </span>
+          <span className='truncate text-xs'>{user?.email || ''}</span>
         </div>
       )}
     </div>

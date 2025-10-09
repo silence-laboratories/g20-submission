@@ -69,26 +69,23 @@ export default function AppSidebar() {
   useEffect(() => {
     const getTenants = async () => {
       if (user && user.entityId) {
-        if(user.entityType === "sme"){
-          setSidebarItems(navItems)
-        try {
-          let response = await apiClient.sme.get(user.entityId)
-          setTenants([{id: response.data.id, name: response.data.name}])
-        } catch (error) {
+        if (user.entityType === 'sme') {
+          setSidebarItems(navItems);
+          try {
+            let response = await apiClient.sme.get(user.entityId);
+            setTenants([{ id: response.data.id, name: response.data.name }]);
+          } catch (error) {}
+        } else {
+          setSidebarItems(navItemsBank);
+          try {
+            let response = await apiClient.bank.get(user.entityId);
+            setTenants([{ id: response.data.id, name: response.data.name }]);
+          } catch (error) {}
         }
       }
-      else{
-        setSidebarItems(navItemsBank)
-        try {
-          let response = await apiClient.bank.get(user.entityId)
-          setTenants([{id: response.data.id, name: response.data.name}])
-        } catch (error) {
-        }
-      }
-      }
-    }
-    getTenants()
-  }, [user, isLoading])
+    };
+    getTenants();
+  }, [user, isLoading]);
 
   const handleSwitchTenant = (_tenantId: string) => {
     // Tenant switching functionality would be implemented here
@@ -103,12 +100,13 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible='icon'>
       <SidebarHeader>
-        {tenants.length > 0 &&
-        <OrgSwitcher
-          tenants={tenants}
-          defaultTenant={activeTenant}
-          onTenantSwitch={handleSwitchTenant}
-        />}
+        {tenants.length > 0 && (
+          <OrgSwitcher
+            tenants={tenants}
+            defaultTenant={activeTenant}
+            onTenantSwitch={handleSwitchTenant}
+          />
+        )}
       </SidebarHeader>
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
@@ -216,7 +214,13 @@ export default function AppSidebar() {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className='cursor-pointer' onClick={() => { logout(); router.push('/auth/sign-in') }}>
+                <DropdownMenuItem
+                  className='cursor-pointer'
+                  onClick={() => {
+                    logout();
+                    router.push('/auth/sign-in');
+                  }}
+                >
                   <IconLogout className='mr-2 h-4 w-4' /> Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>

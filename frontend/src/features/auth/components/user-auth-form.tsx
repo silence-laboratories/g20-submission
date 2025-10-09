@@ -1,8 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,13 +13,15 @@ import { CardContent } from '@/components/ui/card';
 import { apiClient } from '@/lib/api';
 
 interface LoginProps {
-  onSuccess: (user: any) => void
-  onLogin?: (user: any) => void
+  onSuccess: (user: any) => void;
+  onLogin?: (user: any) => void;
 }
 
 const formSchema = z.object({
   email: z.email({ message: 'Enter a valid email address' }),
-  password: z.string().min(8, { message: 'Password must be at least 8 characters' })
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -44,27 +44,27 @@ export default function UserAuthForm({ onSuccess, onLogin }: LoginProps) {
     setIsLoading(true);
     if (data.email === defaultValues.email && data.password === 'bankadmin') {
       try {
-        const backendResponse = await apiClient.auth.googleCallback("MOCK_LOGIN_CODE")
+        const backendResponse =
+          await apiClient.auth.googleCallback('MOCK_LOGIN_CODE');
 
-        const authData = backendResponse.data
-        console.log('Backend response:', authData)
+        const authData = backendResponse.data;
+        console.log('Backend response:', authData);
 
         // Update auth state if callback provided
         if (onLogin) {
-          onLogin(authData)
+          onLogin(authData);
         }
 
         // Pass authentication data to parent component
-        onSuccess(authData)
+        onSuccess(authData);
 
         setTimeout(() => {
-        startTransition(() => {
+          startTransition(() => {
             console.log('continue with email clicked');
             toast.success('Signed In successfully!');
           });
         }, 1500);
-      }
-      catch (error) {
+      } catch (error) {
         setIsLoading(false);
         toast.error('Invalid email or password');
       }
@@ -76,15 +76,18 @@ export default function UserAuthForm({ onSuccess, onLogin }: LoginProps) {
 
   return (
     <>
-      <Card className="bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
+      <Card className='border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20'>
         <CardContent>
-          <div className="flex-1">
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-200 dark:bg-green-800 flex items-center justify-center mt-0.5">
-                  <IconExclamationMark className="w-3 h-3 text-green-600 dark:text-green-400" />
+          <div className='flex-1'>
+            <div className='space-y-3'>
+              <div className='flex items-start space-x-3'>
+                <div className='mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-green-200 dark:bg-green-800'>
+                  <IconExclamationMark className='h-3 w-3 text-green-600 dark:text-green-400' />
                 </div>
-                <p className="text-sm text-green-800 dark:text-green-200"><strong>Demo purpose:</strong> Use <code>admin@bank.com</code> and <code>bankadmin</code> as email and password</p>
+                <p className='text-sm text-green-800 dark:text-green-200'>
+                  <strong>Demo purpose:</strong> Use <code>admin@bank.com</code>{' '}
+                  and <code>bankadmin</code> as email and password
+                </p>
               </div>
             </div>
           </div>
@@ -117,15 +120,15 @@ export default function UserAuthForm({ onSuccess, onLogin }: LoginProps) {
           type='submit'
         >
           {isLoading ? (
-          <div className="flex items-center space-x-3">
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
-            <span className="text-gray-700 dark:text-gray-300 font-medium">
-              Signing in...
-            </span>
-          </div>
-        ) : (
-          <span>Sign In</span>
-        )}
+            <div className='flex items-center space-x-3'>
+              <div className='h-5 w-5 animate-spin rounded-full border-b-2 border-blue-600'></div>
+              <span className='font-medium text-gray-700 dark:text-gray-300'>
+                Signing in...
+              </span>
+            </div>
+          ) : (
+            <span>Sign In</span>
+          )}
         </Button>
       </Form>
     </>

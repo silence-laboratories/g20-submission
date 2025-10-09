@@ -31,9 +31,7 @@ export function UserNav() {
         >
           <DropdownMenuLabel className='font-normal'>
             <div className='flex flex-col space-y-1'>
-              <p className='text-sm leading-none font-medium'>
-                {user.name}
-              </p>
+              <p className='text-sm leading-none font-medium'>{user.name}</p>
               <p className='text-muted-foreground text-xs leading-none'>
                 {user.email}
               </p>
@@ -46,7 +44,13 @@ export function UserNav() {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className='cursor-pointer' onClick={() => {logout(); router.push('/auth/sign-in')}}>
+          <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() => {
+              logout();
+              router.push('/auth/sign-in');
+            }}
+          >
             Sign out
           </DropdownMenuItem>
         </DropdownMenuContent>

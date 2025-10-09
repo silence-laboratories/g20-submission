@@ -23,7 +23,7 @@ export type Loan = {
   lending_bank_id: number;
   sme_id: number;
   consent_status: string;
-}
+};
 
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
 export const navItems: NavItem[] = [
@@ -69,7 +69,7 @@ export const navItemsBank: NavItem[] = [
     shortcut: ['a', 'a'],
     isActive: false,
     items: [] // No child items
-  },
+  }
 ];
 
 export interface SaleUser {

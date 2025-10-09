@@ -22,9 +22,7 @@ export default function page() {
         <Separator />
         <Suspense
           // key={key}
-          fallback={
-            <Skeleton />
-          }
+          fallback={<Skeleton />}
         >
           <ApplyLoanView />
         </Suspense>

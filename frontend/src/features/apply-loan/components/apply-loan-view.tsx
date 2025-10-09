@@ -10,7 +10,8 @@ import StepOverview from './step-overview';
 import ApplyLoanUpload from './apply-loan-upload';
 
 export default function ApplyLoanView() {
-  const [selectedFinancingType, setSelectedFinancingType] = useState<string>('');
+  const [selectedFinancingType, setSelectedFinancingType] =
+    useState<string>('');
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedBank, setSelectedBank] = useState<string>('');
   const [purpose, setPurpose] = useState<string>('');
@@ -19,7 +20,7 @@ export default function ApplyLoanView() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const [currentStep, setCurrentStep] = useState<string>("start");
+  const [currentStep, setCurrentStep] = useState<string>('start');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,79 +32,83 @@ export default function ApplyLoanView() {
       amount
     });
 
-    e.preventDefault()
+    e.preventDefault();
 
     console.log(validateForm());
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
       const requestData = {
         type: selectedFinancingType,
         amount: amount,
         purpose: selectedFinancingType,
-        status: "pending",
+        status: 'pending',
         interest_rate_min: 3.0,
         interest_rate_max: 10.0,
         duration: 24.0,
         lending_bank_id: 2,
         sme_id: user?.entityId
-      }
+      };
 
-      const response = await apiClient.loans.create(requestData)
+      const response = await apiClient.loans.create(requestData);
 
       // Show success message briefly
       setTimeout(() => {
         // Redirect to appropriate portal
-        router.push("/dashboard/applications");
-      }, 2000)
-
+        router.push('/dashboard/applications');
+      }, 2000);
     } catch (error: any) {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
 
   const validateForm = (): boolean => {
-    let valid = selectedFinancingType && selectedCountry && selectedBank && purpose && amount;
+    let valid =
+      selectedFinancingType &&
+      selectedCountry &&
+      selectedBank &&
+      purpose &&
+      amount;
 
     return valid ? true : false;
-  }
+  };
 
   const handleProceedToLoanDetails = () => {
-    setCurrentStep("loanDetails");
+    setCurrentStep('loanDetails');
   };
 
   return (
     <>
-      {currentStep === "start" ? (
+      {currentStep === 'start' ? (
         <StepOverview onProceed={handleProceedToLoanDetails} />
-      ) : currentStep === "loanDetails" ? (
+      ) : currentStep === 'loanDetails' ? (
         <ApplyLoanDetails setCurrentStep={setCurrentStep} />
-      ) :
-        currentStep === "consent" ? (
-          <DataAccessConsent
-            onReject={() => setCurrentStep("loanDetails")}
-            onOTPSubmit={() => setCurrentStep("uploadDocuments")}
-          />
-        ) :
-          <ApplyLoanUpload
-            onBack={() => setCurrentStep("consent")}
-            onNext={() => {
-              // Create a synthetic event for handleSubmit
-              const syntheticEvent = {
-                preventDefault: () => { },
-              } as React.FormEvent;
-              handleSubmit(syntheticEvent);
-            }}
-            onFilesChange={(files) => {
-              console.log('Uploaded files:', files);
-              // Handle file upload logic here if needed
-            }}
-          />}
+      ) : currentStep === 'consent' ? (
+        <DataAccessConsent
+          onReject={() => setCurrentStep('loanDetails')}
+          onOTPSubmit={() => setCurrentStep('uploadDocuments')}
+        />
+      ) : (
+        <ApplyLoanUpload
+          onBack={() => setCurrentStep('consent')}
+          onNext={() => {
+            // Create a synthetic event for handleSubmit
+            const syntheticEvent = {
+              preventDefault: () => {}
+            } as React.FormEvent;
+            handleSubmit(syntheticEvent);
+          }}
+          onFilesChange={(files) => {
+            console.log('Uploaded files:', files);
+            // Handle file upload logic here if needed
+          }}
+        />
+      )}
     </>
   );
 }

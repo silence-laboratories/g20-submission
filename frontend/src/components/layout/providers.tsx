@@ -14,7 +14,7 @@ export default function Providers({
   return (
     <>
       <ActiveThemeProvider initialTheme={activeThemeValue}>
-          {children}
+        {children}
       </ActiveThemeProvider>
     </>
   );

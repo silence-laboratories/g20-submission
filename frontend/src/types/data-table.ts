@@ -9,6 +9,12 @@ export interface Option {
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
+// declare module '@tanstack/react-table' {
+//   interface ColumnMeta<TData, TValue> {
+//     options?: Option[];
+//   }
+// }
+
 export type FilterOperator = DataTableConfig['operators'][number];
 export type FilterVariant = DataTableConfig['filterVariants'][number];
 export type JoinOperator = DataTableConfig['joinOperators'][number];

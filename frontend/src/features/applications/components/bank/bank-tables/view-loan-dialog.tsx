@@ -1,14 +1,14 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-    DialogClose
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
 } from '@/components/ui/dialog';
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -18,251 +18,336 @@ import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
 
 import {
-    TrendingUp,
-    DollarSign,
-    Shield,
-    BarChart3,
-    Users,
-    FileText,
-    Lock,
-    CheckCircle,
-    ShieldCheck
+  TrendingUp,
+  DollarSign,
+  Shield,
+  BarChart3,
+  Users,
+  FileText,
+  Lock,
+  CheckCircle,
+  ShieldCheck
 } from 'lucide-react';
 import { apiClient } from '@/lib/api';
 
 interface InsightCategory {
-    id: string;
-    title: string;
-    description: string;
-    icon: React.ReactNode;
-    comingSoon?: boolean;
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  comingSoon?: boolean;
 }
 
 interface PrivacyGuarantee {
-    id: string;
-    title: string;
-    description: string;
-    icon: React.ReactNode;
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
 }
 
-
 const insightCategories: InsightCategory[] = [
-    {
-        id: 'business-financial-health',
-        title: 'Business Financial Health',
-        description: 'Assessment of business financial stability and growth',
-        icon: <TrendingUp className="h-4 w-4 text-primary" />
-    },
-    {
-        id: 'liquidity-repayment',
-        title: 'Liquidity & Repayment',
-        description: 'Analysis of liquidity position and repayment capacity',
-        icon: <DollarSign className="h-4 w-4 text-primary" />
-    },
-    {
-        id: 'compliance-behavior',
-        title: 'Compliance Behavior',
-        description: 'Evaluation of regulatory compliance and adherence',
-        icon: <Shield className="h-4 w-4 text-primary" />
-    },
-    {
-        id: 'operational-size-stability',
-        title: 'Operational Size & Stability',
-        description: 'Assessment of operational scale and business stability',
-        icon: <BarChart3 className="h-4 w-4 text-primary" />
-    },
-    {
-        id: 'sme-rating',
-        title: 'SME Rating',
-        description: 'Comprehensive SME credit rating and assessment',
-        icon: <Users className="h-4 w-4 text-primary" />
-    }
+  {
+    id: 'business-financial-health',
+    title: 'Business Financial Health',
+    description: 'Assessment of business financial stability and growth',
+    icon: <TrendingUp className='text-primary h-4 w-4' />
+  },
+  {
+    id: 'liquidity-repayment',
+    title: 'Liquidity & Repayment',
+    description: 'Analysis of liquidity position and repayment capacity',
+    icon: <DollarSign className='text-primary h-4 w-4' />
+  },
+  {
+    id: 'compliance-behavior',
+    title: 'Compliance Behavior',
+    description: 'Evaluation of regulatory compliance and adherence',
+    icon: <Shield className='text-primary h-4 w-4' />
+  },
+  {
+    id: 'operational-size-stability',
+    title: 'Operational Size & Stability',
+    description: 'Assessment of operational scale and business stability',
+    icon: <BarChart3 className='text-primary h-4 w-4' />
+  },
+  {
+    id: 'sme-rating',
+    title: 'SME Rating',
+    description: 'Comprehensive SME credit rating and assessment',
+    icon: <Users className='text-primary h-4 w-4' />
+  }
 ];
 
 const privacyGuarantees: PrivacyGuarantee[] = [
-    {
-        id: 'no-raw-data',
-        title: 'No raw data is shared with you',
-        description: 'Only processed insights are provided',
-        icon: <Lock className="h-4 w-4" />
-    },
-    {
-        id: 'auditable-proofs',
-        title: 'Auditable proofs of inference computation and correctness',
-        description: 'Cryptographic proofs ensure data integrity',
-        icon: <CheckCircle className="h-4 w-4" />
-    },
-    {
-        id: 'customer-consent',
-        title: 'Only customer consented inferences will be processed',
-        description: 'Strict adherence to customer consent boundaries',
-        icon: <ShieldCheck className="h-4 w-4" />
-    }
+  {
+    id: 'no-raw-data',
+    title: 'No raw data is shared with you',
+    description: 'Only processed insights are provided',
+    icon: <Lock className='h-4 w-4' />
+  },
+  {
+    id: 'auditable-proofs',
+    title: 'Auditable proofs of inference computation and correctness',
+    description: 'Cryptographic proofs ensure data integrity',
+    icon: <CheckCircle className='h-4 w-4' />
+  },
+  {
+    id: 'customer-consent',
+    title: 'Only customer consented inferences will be processed',
+    description: 'Strict adherence to customer consent boundaries',
+    icon: <ShieldCheck className='h-4 w-4' />
+  }
 ];
 
-
 export default function BankViewLoanDialog({ loan }: { loan: any }) {
-    const [activeView, setActiveView] = useState("details")
-    const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+  const [activeView, setActiveView] = useState('details');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-    const handleGenerateInsights = async (loan: any) => {
-        console.log(loan);
-        setIsLoading(true);
-        try {
-            let updatedLoan = await apiClient.loans.updateLoan(loan.id.split("-")[1], { insights_status: "generating" })
-            setIsLoading(false);
-            console.log(updatedLoan.data);
+  const handleGenerateInsights = async (loan: any) => {
+    console.log(loan);
+    setIsLoading(true);
+    try {
+      let updatedLoan = await apiClient.loans.updateLoan(
+        loan.id.split('-')[1],
+        { insights_status: 'generating' }
+      );
+      setIsLoading(false);
+      console.log(updatedLoan.data);
 
-            // Refresh the server component data using router.refresh()
-            router.refresh();
+      // Refresh the server component data using router.refresh()
+      router.refresh();
 
-            // Alternative: Use server action to revalidate specific path
-            // await refreshApplications();
-        }
-        catch (e) {
-            console.log(e);
-            setIsLoading(false);
-        }
+      // Alternative: Use server action to revalidate specific path
+      // await refreshApplications();
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false);
     }
+  };
 
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Badge variant="default" className='cursor-pointer text-medium'><IconEye className='mr-1 h-3 w-3' />Review</Badge>
-            </DialogTrigger>
-            <DialogContent className={`sm:max-w-[625px] md:max-w-[700px] lg:max-w-[700px] ${activeView === 'details' ? '' : 'sm:max-w-[800px] md:max-w-[900px] lg:max-w-[1000px] max-h-[90vh] overflow-y-auto'}`}>
-                <DialogHeader>
-                    <DialogTitle>{activeView === "details" ? "Loan application" : "Insights Configuration"}</DialogTitle>
-                    <DialogDescription>
-                        {activeView === "details" ? "Review the loan application and generate insights securely" : "Review the insights categories that will be generated by secure computation"}
-                    </DialogDescription>
-                </DialogHeader>
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Badge variant='default' className='text-medium cursor-pointer'>
+          <IconEye className='mr-1 h-3 w-3' />
+          Review
+        </Badge>
+      </DialogTrigger>
+      <DialogContent
+        className={`sm:max-w-[625px] md:max-w-[700px] lg:max-w-[700px] ${activeView === 'details' ? '' : 'max-h-[90vh] overflow-y-auto sm:max-w-[800px] md:max-w-[900px] lg:max-w-[1000px]'}`}
+      >
+        <DialogHeader>
+          <DialogTitle>
+            {activeView === 'details'
+              ? 'Loan application'
+              : 'Insights Configuration'}
+          </DialogTitle>
+          <DialogDescription>
+            {activeView === 'details'
+              ? 'Review the loan application and generate insights securely'
+              : 'Review the insights categories that will be generated by secure computation'}
+          </DialogDescription>
+        </DialogHeader>
 
-                {loan &&
-                    (activeView === "details" ? <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                        <Card className="bg-muted/30">
-                            <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Organization:</h4>
-                                    <p className="text-sm text-muted-foreground">{loan?.organization}</p>
-                                </div>
+        {loan &&
+          (activeView === 'details' ? (
+            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+              <Card className='bg-muted/30'>
+                <CardContent className='space-y-4'>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Organization:
+                    </h4>
+                    <p className='text-muted-foreground text-sm'>
+                      {loan?.organization}
+                    </p>
+                  </div>
 
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Registration number:</h4>
-                                    <p className="text-sm text-muted-foreground">{loan?.registrationNumber}</p>
-                                </div>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Registration number:
+                    </h4>
+                    <p className='text-muted-foreground text-sm'>
+                      {loan?.registrationNumber}
+                    </p>
+                  </div>
 
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Registered Mobile Number:</h4>
-                                    <p className="text-sm text-muted-foreground">{loan?.phoneNumber}</p>
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Registered country:</h4>
-                                    <p className="text-sm text-muted-foreground">{loan?.smeBankCountry}</p>
-                                </div>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Registered Mobile Number:
+                    </h4>
+                    <p className='text-muted-foreground text-sm'>
+                      {loan?.phoneNumber}
+                    </p>
+                  </div>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Registered country:
+                    </h4>
+                    <p className='text-muted-foreground text-sm'>
+                      {loan?.smeBankCountry}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
 
-                            </CardContent>
-                        </Card>
+              <Card className='bg-muted/30'>
+                <CardContent className='space-y-4'>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Primary financial partner:
+                    </h4>
+                    <p className='text-muted-foreground text-sm'>
+                      {loan?.smeBank}
+                    </p>
+                    <div className='flex items-center gap-2'>
+                      <h4 className='text-sm text-green-500'>
+                        Account verified
+                      </h4>
+                      <IconCircleCheck className='text-green-500' />
+                    </div>
+                  </div>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Amount requested:
+                    </h4>
+                    <div className='text-muted-foreground flex items-center gap-1 text-sm'>
+                      <DollarSign className='text-muted-foreground h-4 w-4' />
+                      {loan?.amount}
+                    </div>
+                    {/* <p className="text-sm text-muted-foreground"><DollarSign className='h-4 w-4 text-muted-foreground' /> {amount}</p> */}
+                  </div>
+                  <div className='space-y-2'>
+                    <h4 className='text-foreground font-medium'>
+                      Purpose of Loan:
+                    </h4>
+                    <p className='text-muted-foreground text-sm'>
+                      {loan?.purpose}
+                    </p>
+                  </div>
 
-                        <Card className="bg-muted/30">
-                            <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Primary financial partner:</h4>
-                                    <p className="text-sm text-muted-foreground">{loan?.smeBank}</p>
-                                    <div className='flex items-center gap-2'><h4 className="text-sm text-green-500">Account verified</h4><IconCircleCheck className='text-green-500' /></div>
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Amount requested:</h4>
-                                    <div className='flex items-center gap-1 text-sm text-muted-foreground'>
-                                        <DollarSign className='h-4 w-4 text-muted-foreground' />
-                                        {loan?.amount}
-                                    </div>
-                                    {/* <p className="text-sm text-muted-foreground"><DollarSign className='h-4 w-4 text-muted-foreground' /> {amount}</p> */}
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="font-medium text-foreground">Purpose of Loan:</h4>
-                                    <p className="text-sm text-muted-foreground">{loan?.purpose}</p>
-                                </div>
-
-                                <div className="space-y-2">
-                                    {loan.consentStatus === "approved" ? <div className='flex items-center gap-2'><h4 className="font-medium text-foreground"> Consent Approved</h4><IconCircleCheck className='text-green-500' /></div> : <h4 className="font-medium text-foreground">Consent Pending</h4>}
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div> : <div className="space-y-8">
-
-                        {/* Privacy Guarantees Section */}
-                        <div>
-                            <Card className="bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
-                                <CardContent className="px-4">
-                                    <h3 className="text-lg font-semibold text-green-100 ">
-                                        Privacy Guarantees
-                                    </h3>
-                                    {privacyGuarantees.map((guarantee) => (
-                                        <div className="flex items-center space-x-3 my-2" key={guarantee.id} >
-                                            <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center">
-                                                <div className="text-green-600 dark:text-green-400">
-                                                    {guarantee.icon}
-                                                </div>
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <h3 className="text-green-300 text-sm">
-                                                    {guarantee.title}
-                                                </h3>
-                                                {/* <p className="text-xs text-muted-background mt-1">
+                  <div className='space-y-2'>
+                    {loan.consentStatus === 'approved' ? (
+                      <div className='flex items-center gap-2'>
+                        <h4 className='text-foreground font-medium'>
+                          {' '}
+                          Consent Approved
+                        </h4>
+                        <IconCircleCheck className='text-green-500' />
+                      </div>
+                    ) : (
+                      <h4 className='text-foreground font-medium'>
+                        Consent Pending
+                      </h4>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            <div className='space-y-8'>
+              {/* Privacy Guarantees Section */}
+              <div>
+                <Card className='border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20'>
+                  <CardContent className='px-4'>
+                    <h3 className='text-lg font-semibold text-green-100'>
+                      Privacy Guarantees
+                    </h3>
+                    {privacyGuarantees.map((guarantee) => (
+                      <div
+                        className='my-2 flex items-center space-x-3'
+                        key={guarantee.id}
+                      >
+                        <div className='flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50'>
+                          <div className='text-green-600 dark:text-green-400'>
+                            {guarantee.icon}
+                          </div>
+                        </div>
+                        <div className='min-w-0 flex-1'>
+                          <h3 className='text-sm text-green-300'>
+                            {guarantee.title}
+                          </h3>
+                          {/* <p className="text-xs text-muted-background mt-1">
                                                     {guarantee.description}
                                                 </p> */}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </CardContent>
-                            </Card>
                         </div>
-                        {/* Select Insights Categories Section */}
-                        <div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {insightCategories.map((category) => (
-                                    <Card
-                                        key={category.id}
-                                        className={`cursor-pointer hover:shadow-md bg-muted/30 border`}
-                                    >
-                                        <CardContent className="px-4">
-                                            <div className="flex items-start space-x-3">
-                                                <div className="flex-shrink-0 w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
-                                                    {category.icon}
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="flex items-center justify-between">
-                                                        <h3 className="font-semibold text-foreground text-sm">
-                                                            {category.title}
-                                                        </h3>
-                                                    </div>
-                                                    <p className="text-xs text-muted-foreground mt-1">
-                                                        {category.description}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+              {/* Select Insights Categories Section */}
+              <div>
+                <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+                  {insightCategories.map((category) => (
+                    <Card
+                      key={category.id}
+                      className={`bg-muted/30 cursor-pointer border hover:shadow-md`}
+                    >
+                      <CardContent className='px-4'>
+                        <div className='flex items-start space-x-3'>
+                          <div className='bg-primary/10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md'>
+                            {category.icon}
+                          </div>
+                          <div className='min-w-0 flex-1'>
+                            <div className='flex items-center justify-between'>
+                              <h3 className='text-foreground text-sm font-semibold'>
+                                {category.title}
+                              </h3>
                             </div>
+                            <p className='text-muted-foreground mt-1 text-xs'>
+                              {category.description}
+                            </p>
+                          </div>
                         </div>
-                    </div>)}
-                <DialogFooter className="flex justify-between">
-                    {loan?.insightStatus === "generating" ? <Button variant="default" size="sm" className='cursor-pointer' disabled>Generating Insights...</Button> :
-                        activeView === 'details' ? <Button variant="default" size="sm" className='cursor-pointer' onClick={() => setActiveView("insights")}>
-                            Review Insights</Button> : <DialogTrigger asChild><Button variant="default" size="sm" className='cursor-pointer' onClick={() => handleGenerateInsights(loan)}>
-                                {isLoading ? (
-                                    <div className="flex items-center justify-center">
-                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                        Submitting...              </div>
-                                ) : (
-                                    `Generate Insights`
-                                )}</Button></DialogTrigger>}
-
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    );
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        <DialogFooter className='flex justify-between'>
+          {loan?.insightStatus === 'generating' ? (
+            <Button
+              variant='default'
+              size='sm'
+              className='cursor-pointer'
+              disabled
+            >
+              Generating Insights...
+            </Button>
+          ) : activeView === 'details' ? (
+            <Button
+              variant='default'
+              size='sm'
+              className='cursor-pointer'
+              onClick={() => setActiveView('insights')}
+            >
+              Review Insights
+            </Button>
+          ) : (
+            <DialogTrigger asChild>
+              <Button
+                variant='default'
+                size='sm'
+                className='cursor-pointer'
+                onClick={() => handleGenerateInsights(loan)}
+              >
+                {isLoading ? (
+                  <div className='flex items-center justify-center'>
+                    <div className='mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white'></div>
+                    Submitting...{' '}
+                  </div>
+                ) : (
+                  `Generate Insights`
+                )}
+              </Button>
+            </DialogTrigger>
+          )}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
 }

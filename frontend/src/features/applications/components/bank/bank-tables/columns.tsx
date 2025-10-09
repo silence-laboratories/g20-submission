@@ -18,14 +18,14 @@ export type BankApplication = {
   smeBankCountry: string;
   phoneNumber: string;
   registrationNumber: string;
-  };
+};
 
 export const columns: ColumnDef<BankApplication>[] = [
   {
     id: 'id',
     accessorKey: 'id',
     header: ({ column }: { column: Column<BankApplication, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Application ID'/>
+      <DataTableColumnHeader column={column} title='Application ID' />
     ),
     cell: ({ cell }) => (
       <div className='font-mono text-sm'>
@@ -41,14 +41,15 @@ export const columns: ColumnDef<BankApplication>[] = [
     ),
     cell: ({ cell }) => (
       <div className='flex items-center gap-2'>
-        <Building className='h-4 w-4 text-muted-foreground' />
+        <Building className='text-muted-foreground h-4 w-4' />
         {cell.getValue<BankApplication['organization']>()}
       </div>
     ),
     enableColumnFilter: true,
     meta: {
       label: 'Organization',
-    }
+      options: []
+    },
   },
   {
     id: 'purpose',
@@ -64,6 +65,7 @@ export const columns: ColumnDef<BankApplication>[] = [
     enableColumnFilter: true,
     meta: {
       label: 'Purpose',
+      options: []
     }
   },
   {
@@ -86,6 +88,7 @@ export const columns: ColumnDef<BankApplication>[] = [
     },
     meta: {
       label: 'Amount',
+      options: []
     }
   },
   {
@@ -96,10 +99,18 @@ export const columns: ColumnDef<BankApplication>[] = [
     ),
     cell: ({ cell }) => {
       const status = cell.getValue<BankApplication['consentStatus']>();
-      const variant = status === 'approved' ? 'success' : 
-                     status === 'pending' ? 'secondary' : 'destructive';
-      const icon = status === 'approved' ? CheckCircle2 : 
-                   status === 'pending' ? Clock : Shield;
+      const variant =
+        status === 'approved'
+          ? 'success'
+          : status === 'pending'
+            ? 'secondary'
+            : 'destructive';
+      const icon =
+        status === 'approved'
+          ? CheckCircle2
+          : status === 'pending'
+            ? Clock
+            : Shield;
 
       const Icon = icon;
       return (
@@ -112,6 +123,7 @@ export const columns: ColumnDef<BankApplication>[] = [
     enableColumnFilter: true,
     meta: {
       label: 'Consent Status',
+      options: []
     }
   },
   {
@@ -122,12 +134,22 @@ export const columns: ColumnDef<BankApplication>[] = [
     ),
     cell: ({ cell }) => {
       const status = cell.getValue<BankApplication['insightStatus']>();
-      const variant = status === 'generated' ? 'success' : 
-                     status === 'pending' ? 'secondary' : 
-                    status === 'generating' ? 'tertiary' : 'destructive' ;
-      const icon = status === 'generated' ? CheckCircle2 : 
-                   status === 'pending' ? Clock : 
-                   status === 'generating' ? Clock : Shield;
+      const variant =
+        status === 'generated'
+          ? 'success'
+          : status === 'pending'
+            ? 'secondary'
+            : status === 'generating'
+              ? 'tertiary'
+              : 'destructive';
+      const icon =
+        status === 'generated'
+          ? CheckCircle2
+          : status === 'pending'
+            ? Clock
+            : status === 'generating'
+              ? Clock
+              : Shield;
       const Icon = icon;
       return (
         <Badge variant={variant} className='capitalize'>
@@ -139,6 +161,7 @@ export const columns: ColumnDef<BankApplication>[] = [
     enableColumnFilter: true,
     meta: {
       label: 'Insight Status',
+      options: []
     }
   },
   {
@@ -149,12 +172,22 @@ export const columns: ColumnDef<BankApplication>[] = [
     ),
     cell: ({ cell }) => {
       const status = cell.getValue<BankApplication['applicationStatus']>();
-      const variant = status === 'approved' ? 'success' : 
-                     status === 'under_review' ? 'secondary' : 
-                     status === 'pending' ? 'secondary' : 'destructive';
-      const icon = status === 'approved' ? CheckCircle2 : 
-                   status === 'under_review' ? Clock : 
-                   status === 'pending' ? Clock : Shield;
+      const variant =
+        status === 'approved'
+          ? 'success'
+          : status === 'under_review'
+            ? 'secondary'
+            : status === 'pending'
+              ? 'secondary'
+              : 'destructive';
+      const icon =
+        status === 'approved'
+          ? CheckCircle2
+          : status === 'under_review'
+            ? Clock
+            : status === 'pending'
+              ? Clock
+              : Shield;
 
       const Icon = icon;
       return (
@@ -167,13 +200,12 @@ export const columns: ColumnDef<BankApplication>[] = [
     enableColumnFilter: true,
     meta: {
       label: 'Application Status',
+      options: []
     }
   },
   {
     id: 'actions',
     header: 'Actions',
-    cell: ({ row }) => (
-      <CellAction data={row.original} />
-    )
+    cell: ({ row }) => <CellAction data={row.original} />
   }
 ];

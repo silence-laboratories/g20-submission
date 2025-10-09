@@ -3,7 +3,14 @@ import { v4 as uuid } from 'uuid';
 import { persist } from 'zustand/middleware';
 
 // Loan-related types
-export type LoanStatus = 'pending' | 'approved' | 'rejected' | 'under_review' | 'completed' | 'cancelled' | 'pending_consent';
+export type LoanStatus =
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'under_review'
+  | 'completed'
+  | 'cancelled'
+  | 'pending_consent';
 
 export type FinancingType = {
   id: string;
@@ -145,7 +152,7 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           ...loanData,
           id: uuid(),
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
         };
         set((state) => ({
           loans: [...state.loans, newLoan]
@@ -155,7 +162,8 @@ export const useLoanStore = create<LoanState & LoanActions>()(
       deleteLoan: (id: string) => {
         set((state) => ({
           loans: state.loans.filter((loan) => loan.id !== id),
-          selectedLoan: state.selectedLoan?.id === id ? null : state.selectedLoan
+          selectedLoan:
+            state.selectedLoan?.id === id ? null : state.selectedLoan
         }));
       },
 
@@ -217,7 +225,9 @@ export const useLoanStore = create<LoanState & LoanActions>()(
         if (state.loanFilters.dateRange) {
           const { start, end } = state.loanFilters.dateRange;
           filteredLoans = filteredLoans.filter((loan) => {
-            const loanDate = new Date(loan.created_at || loan.application_date || '');
+            const loanDate = new Date(
+              loan.created_at || loan.application_date || ''
+            );
             return loanDate >= new Date(start) && loanDate <= new Date(end);
           });
         }
@@ -239,11 +249,11 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           loans: state.loans.map((loan) =>
             loan.id === id
               ? {
-                ...loan,
-                status,
-                notes: notes || loan.notes,
-                updated_at: new Date().toISOString(),
-              }
+                  ...loan,
+                  status,
+                  notes: notes || loan.notes,
+                  updated_at: new Date().toISOString()
+                }
               : loan
           )
         }));
@@ -277,12 +287,14 @@ export const useLoanStore = create<LoanState & LoanActions>()(
         set((state) => ({
           loans: state.loans.map((loan) => {
             console.log(loan);
-            return loan.id === id ? {
-              ...loan,
-              consent_status: status,
-              notes: notes || loan.notes,
-              updated_at: new Date().toISOString(),
-            } : loan;
+            return loan.id === id
+              ? {
+                  ...loan,
+                  consent_status: status,
+                  notes: notes || loan.notes,
+                  updated_at: new Date().toISOString()
+                }
+              : loan;
           })
         }));
       },
@@ -292,10 +304,10 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           loans: state.loans.map((loan) =>
             loan.id === id
               ? {
-                ...loan,
-                insights_status: status,
-                updated_at: new Date().toISOString(),
-              }
+                  ...loan,
+                  insights_status: status,
+                  updated_at: new Date().toISOString()
+                }
               : loan
           )
         }));
@@ -306,11 +318,11 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           loans: state.loans.map((loan) =>
             loan.id === id
               ? {
-                ...loan,
-                status: 'approved',
-                approval_date: approvalDate || new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-              }
+                  ...loan,
+                  status: 'approved',
+                  approval_date: approvalDate || new Date().toISOString(),
+                  updated_at: new Date().toISOString()
+                }
               : loan
           )
         }));
@@ -321,11 +333,11 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           loans: state.loans.map((loan) =>
             loan.id === id
               ? {
-                ...loan,
-                status: 'rejected',
-                rejection_reason: reason,
-                updated_at: new Date().toISOString(),
-              }
+                  ...loan,
+                  status: 'rejected',
+                  rejection_reason: reason,
+                  updated_at: new Date().toISOString()
+                }
               : loan
           )
         }));
@@ -348,9 +360,10 @@ export const useLoanStore = create<LoanState & LoanActions>()(
       deleteMultipleLoans: (ids: string[]) => {
         set((state) => ({
           loans: state.loans.filter((loan) => !ids.includes(loan.id)),
-          selectedLoan: state.selectedLoan && ids.includes(state.selectedLoan.id)
-            ? null
-            : state.selectedLoan
+          selectedLoan:
+            state.selectedLoan && ids.includes(state.selectedLoan.id)
+              ? null
+              : state.selectedLoan
         }));
       },
 
@@ -359,10 +372,10 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           loans: state.loans.map((loan) =>
             ids.includes(loan.id)
               ? {
-                ...loan,
-                status,
-                updated_at: new Date().toISOString(),
-              }
+                  ...loan,
+                  status,
+                  updated_at: new Date().toISOString()
+                }
               : loan
           )
         }));
@@ -374,11 +387,20 @@ export const useLoanStore = create<LoanState & LoanActions>()(
         const loans = state.loans;
 
         const total = loans.length;
-        const pending = loans.filter((loan) => loan.status === 'pending').length;
-        const approved = loans.filter((loan) => loan.status === 'approved').length;
-        const rejected = loans.filter((loan) => loan.status === 'rejected').length;
+        const pending = loans.filter(
+          (loan) => loan.status === 'pending'
+        ).length;
+        const approved = loans.filter(
+          (loan) => loan.status === 'approved'
+        ).length;
+        const rejected = loans.filter(
+          (loan) => loan.status === 'rejected'
+        ).length;
 
-        const totalAmount = loans.reduce((sum, loan) => sum + parseFloat(loan.amount || '0'), 0);
+        const totalAmount = loans.reduce(
+          (sum, loan) => sum + parseFloat(loan.amount || '0'),
+          0
+        );
         const averageAmount = total > 0 ? totalAmount / total : 0;
 
         return {
@@ -387,7 +409,7 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           approved,
           rejected,
           totalAmount,
-          averageAmount,
+          averageAmount
         };
       },
 
@@ -396,15 +418,15 @@ export const useLoanStore = create<LoanState & LoanActions>()(
         const state = get();
         const lowercaseQuery = query.toLowerCase();
 
-        return state.loans.filter((loan) =>
-          loan.type?.toLowerCase().includes(lowercaseQuery) ||
-          loan.bank_name?.toLowerCase().includes(lowercaseQuery) ||
-          loan.country?.toLowerCase().includes(lowercaseQuery) ||
-          loan.amount.includes(query) ||
-          loan.status?.toLowerCase().includes(lowercaseQuery)
+        return state.loans.filter(
+          (loan) =>
+            loan.type?.toLowerCase().includes(lowercaseQuery) ||
+            loan.bank_name?.toLowerCase().includes(lowercaseQuery) ||
+            loan.country?.toLowerCase().includes(lowercaseQuery) ||
+            loan.amount.includes(query) ||
+            loan.status?.toLowerCase().includes(lowercaseQuery)
         );
       },
-
 
       // Export functionality
       exportLoans: (format: 'csv' | 'json') => {
@@ -419,12 +441,14 @@ export const useLoanStore = create<LoanState & LoanActions>()(
         if (loans.length === 0) return '';
 
         const headers = Object.keys(loans[0]).join(',');
-        const rows = loans.map(loan =>
-          Object.values(loan).map(value =>
-            typeof value === 'string' && value.includes(',')
-              ? `"${value}"`
-              : value
-          ).join(',')
+        const rows = loans.map((loan) =>
+          Object.values(loan)
+            .map((value) =>
+              typeof value === 'string' && value.includes(',')
+                ? `"${value}"`
+                : value
+            )
+            .join(',')
         );
 
         return [headers, ...rows].join('\n');
@@ -445,18 +469,18 @@ export const useLoanStore = create<LoanState & LoanActions>()(
           sme_id: applicationData.smeId,
           country: applicationData.country,
           bank_name: applicationData.bankName,
-          application_date: new Date().toISOString(),
+          application_date: new Date().toISOString()
         };
 
         get().addLoan(newLoan);
-      },
+      }
     }),
     {
       name: 'loan-store',
       skipHydration: true,
       partialize: (state) => ({
         loans: state.loans,
-        loanFilters: state.loanFilters,
+        loanFilters: state.loanFilters
       })
     }
   )
@@ -491,7 +515,7 @@ export const useLoanActions = () => {
     getStats: store.getLoanStats,
 
     // Export
-    export: store.exportLoans,
+    export: store.exportLoans
   };
 };
 

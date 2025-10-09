@@ -10,14 +10,14 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
+  CommandList
 } from '@/components/ui/command';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
+  PopoverTrigger
 } from '@/components/ui/popover';
-import am5geodata_data_countries2 from "@amcharts/amcharts5-geodata/data/countries2";
+import am5geodata_data_countries2 from '@amcharts/amcharts5-geodata/data/countries2';
 
 interface CountrySearchProps {
   onCountrySelect: (countryCode: string, countryName: string) => void;
@@ -30,7 +30,10 @@ interface Country {
   continent: string;
 }
 
-const CountrySearch: React.FC<CountrySearchProps> = ({ onCountrySelect, initialSearchValue }) => {
+const CountrySearch: React.FC<CountrySearchProps> = ({
+  onCountrySelect,
+  initialSearchValue
+}) => {
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState(initialSearchValue || '');
 
@@ -39,18 +42,19 @@ const CountrySearch: React.FC<CountrySearchProps> = ({ onCountrySelect, initialS
     return Object.entries(am5geodata_data_countries2).map(([code, data]) => ({
       code,
       name: data.country,
-      continent: data.continent,
+      continent: data.continent
     }));
   }, []);
 
   // Filter countries based on search
   const filteredCountries = useMemo(() => {
     if (!searchValue) return countries.slice(0, 50); // Show first 50 if no search
-    
-    return countries.filter(country =>
-      country.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      country.code.toLowerCase().includes(searchValue.toLowerCase()) ||
-      country.continent.toLowerCase().includes(searchValue.toLowerCase())
+
+    return countries.filter(
+      (country) =>
+        country.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        country.code.toLowerCase().includes(searchValue.toLowerCase()) ||
+        country.continent.toLowerCase().includes(searchValue.toLowerCase())
     );
   }, [countries, searchValue]);
 
@@ -61,28 +65,28 @@ const CountrySearch: React.FC<CountrySearchProps> = ({ onCountrySelect, initialS
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className='w-full max-w-md'>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant="outline"
-            role="combobox"
+            variant='outline'
+            role='combobox'
             aria-expanded={open}
-            className="w-full justify-between"
+            className='w-full justify-between'
           >
-            <div className="flex items-center gap-2">
-              <Search className="h-4 w-4" />
-              <span className="truncate">
-                {searchValue || "Search countries..."}
+            <div className='flex items-center gap-2'>
+              <Search className='h-4 w-4' />
+              <span className='truncate'>
+                {searchValue || 'Search countries...'}
               </span>
             </div>
-            <MapPin className="h-4 w-4 shrink-0 opacity-50" />
+            <MapPin className='h-4 w-4 shrink-0 opacity-50' />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
+        <PopoverContent className='w-full p-0' align='start'>
           <Command>
             <CommandInput
-              placeholder="Search countries, codes, or continents..."
+              placeholder='Search countries, codes, or continents...'
               value={searchValue}
               onValueChange={setSearchValue}
             />
@@ -94,15 +98,15 @@ const CountrySearch: React.FC<CountrySearchProps> = ({ onCountrySelect, initialS
                     key={country.code}
                     value={`${country.name} ${country.code} ${country.continent}`}
                     onSelect={() => handleCountrySelect(country)}
-                    className="flex items-center justify-between"
+                    className='flex items-center justify-between'
                   >
-                    <div className="flex flex-col">
-                      <span className="font-medium">{country.name}</span>
-                      <span className="text-sm text-muted-foreground">
+                    <div className='flex flex-col'>
+                      <span className='font-medium'>{country.name}</span>
+                      <span className='text-muted-foreground text-sm'>
                         {country.continent}
                       </span>
                     </div>
-                    <span className="text-sm font-mono text-muted-foreground">
+                    <span className='text-muted-foreground font-mono text-sm'>
                       {country.code}
                     </span>
                   </CommandItem>

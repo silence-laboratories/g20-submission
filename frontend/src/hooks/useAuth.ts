@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useCallback } from 'react';
 import { apiClient } from '@/lib/api';
@@ -14,7 +14,7 @@ export const useAuth = () => {
   const [authState, setAuthState] = useState<AuthState>({
     user: null,
     isLoading: true,
-    isAuthenticated: false,
+    isAuthenticated: false
   });
 
   // Check if user is authenticated on mount
@@ -26,14 +26,14 @@ export const useAuth = () => {
         setAuthState({
           user: response.data,
           isLoading: false,
-          isAuthenticated: true,
+          isAuthenticated: true
         });
       } catch (error) {
         // Token might be expired or invalid
         setAuthState({
           user: null,
           isLoading: false,
-          isAuthenticated: false,
+          isAuthenticated: false
         });
       }
     };
@@ -45,7 +45,7 @@ export const useAuth = () => {
     setAuthState({
       user: userData,
       isLoading: false,
-      isAuthenticated: true,
+      isAuthenticated: true
     });
   }, []);
 
@@ -56,7 +56,7 @@ export const useAuth = () => {
       setAuthState({
         user: null,
         isLoading: false,
-        isAuthenticated: false,
+        isAuthenticated: false
       });
     } catch (error) {
       console.error('Logout API call failed:', error);
@@ -64,9 +64,9 @@ export const useAuth = () => {
   }, []);
 
   const updateUser = useCallback((userData: User) => {
-    setAuthState(prev => ({
+    setAuthState((prev) => ({
       ...prev,
-      user: userData,
+      user: userData
     }));
   }, []);
 
@@ -74,6 +74,6 @@ export const useAuth = () => {
     ...authState,
     login,
     logout,
-    updateUser,
+    updateUser
   };
 };

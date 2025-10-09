@@ -10,7 +10,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import './theme.css';
 import Script from 'next/script';
-import "flag-icons/css/flag-icons.min.css";
+import 'flag-icons/css/flag-icons.min.css';
 
 const META_THEME_COLORS = {
   light: '#ffffff',
@@ -50,8 +50,8 @@ export default async function RootLayout({
           }}
         />
         <Script
-          src="https://accounts.google.com/gsi/client"
-          strategy="beforeInteractive"
+          src='https://accounts.google.com/gsi/client'
+          strategy='beforeInteractive'
         />
       </head>
       <body
