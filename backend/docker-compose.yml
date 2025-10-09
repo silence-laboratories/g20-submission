@@ -1,0 +1,35 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # -------- replace with comment to run with gunicorn --------
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # command: gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
+    env_file:
+      - ./src/.env
+    # -------- replace with comment if you are using nginx --------
+    ports:
+      - "8000:8000"
+    # expose:
+    #   - "8000"
+    depends_on:
+      - db
+    volumes:
+      - ./src/app:/code/app
+      - ./src/.env:/code/.env
+
+  db:
+    image: postgres:13
+    env_file:
+      - ./src/.env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    # -------- replace with comment to run migrations with docker --------
+    expose:
+      - "5432"
+    ports:
+     - 5432:5432
+
+volumes:
+  postgres-data:
