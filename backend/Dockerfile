@@ -39,6 +39,9 @@
     # Set the working directory
     WORKDIR /code
 
+    # Copy application code
+    COPY --from=builder --chown=app:app /app/src /code
+
     EXPOSE 8000
     
     # -------- replace with comment to run with gunicorn --------
