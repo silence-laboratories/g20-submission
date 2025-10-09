@@ -57,10 +57,6 @@ WORKDIR /code
 # Copy application code and configuration files directly into the image instead of relying on volume mounts
 COPY --chown=app:app ./src/app /code/app
 
-# Also copy other necessary configuration files
-COPY --chown=app:app ./src/alembic.ini /code/alembic.ini
-COPY --chown=app:app ./src/migrations /code/migrations
-
 # Expose the application port
 EXPOSE 8000
 
