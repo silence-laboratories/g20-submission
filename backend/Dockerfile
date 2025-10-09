@@ -20,6 +20,26 @@ COPY . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-editable
 
+# --------- Migration Stage ---------
+FROM python:3.11-slim-bookworm AS migration
+
+# Copy the virtual environment from the builder stage
+COPY --from=builder /app/.venv /app/.venv
+
+# Ensure the virtual environment is in the PATH
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Set the working directory
+WORKDIR /code
+
+# Copy necessary files for migrations
+COPY --from=builder /app/src/alembic.ini /code/alembic.ini
+COPY --from=builder /app/src/migrations /code/migrations
+COPY --from=builder /app/src/app /code/app
+
+# Run migrations
+CMD ["alembic", "upgrade", "head"]
+
 # --------- Final Stage ---------
 FROM python:3.11-slim-bookworm
 
@@ -39,13 +59,11 @@ USER app
 # Set the working directory
 WORKDIR /code
 
-# Copy application code and configuration files directly into the image instead of relying on volume mounts
-COPY --chown=app:app ./src/app /code/app
+    # Copy application code
+COPY --from=builder --chown=app:app /app/src /code
 
-# Expose the application port
+# Expose the port the app runs on
 EXPOSE 8000
 
 # -------- replace with comment to run with gunicorn --------
-# Use uvicorn without --reload for production use in standalone container
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-# CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
