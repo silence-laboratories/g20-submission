@@ -19,8 +19,6 @@ services:
     volumes:
       - ./src/app:/code/app
       - ./src/.env:/code/.env
-      - ./src/alembic.ini:/code/alembic.ini
-      - ./src/migrations:/code/migrations
 
   db:
     image: postgres:13
