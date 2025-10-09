@@ -33,7 +33,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY src/ /app/
 WORKDIR /app
 
-
 CMD ["alembic", "upgrade", "head"]
 
 # --------- Final Stage ---------
