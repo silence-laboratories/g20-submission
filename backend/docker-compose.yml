@@ -30,6 +30,16 @@ services:
       - "5432"
     ports:
      - 5432:5432
+  
+  migrate:
+    build:
+      context: .
+      target: migration
+    env_file:
+      - ./src/.env
+    depends_on:
+      - db
+    command: alembic upgrade head
 
 volumes:
   postgres-data:

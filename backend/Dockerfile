@@ -20,6 +20,26 @@ COPY . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-editable
 
+# --------- Migration Stage ---------
+FROM python:3.11-slim-bookworm AS migration
+
+# Copy the virtual environment from the builder stage
+COPY --from=builder /app/.venv /app/.venv
+
+# Ensure the virtual environment is in the PATH
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Set the working directory
+WORKDIR /code
+
+# Copy necessary files for migrations
+COPY --from=builder /app/src/alembic.ini /code/alembic.ini
+COPY --from=builder /app/src/migrations /code/migrations
+COPY --from=builder /app/src/app /code/app
+
+# Run migrations
+CMD ["alembic", "upgrade", "head"]
+
 # --------- Final Stage ---------
 FROM python:3.11-slim-bookworm
 
