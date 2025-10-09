@@ -81,7 +81,7 @@ async def logout(
         httponly=True, 
         secure=True, 
         samesite="none",  # Changed to "none" for cross-origin
-        domain=".silentlaboratories.com"  # Set to your root domain with leading dot
+        domain=".silencelaboratories.com"  # Set to your root domain with leading dot
     )
     return {"message": "Logged out successfully"}
 
@@ -120,7 +120,7 @@ async def google_callback(
                 secure=True,
                 samesite="none",  # Changed to "none" for cross-origin
                 max_age=max_age,
-                domain=".silentlaboratories.com"  # Set to your root domain with leading dot
+                domain=".silencelaboratories.com"  # Set to your root domain with leading dot
             )
             
             return {
@@ -158,7 +158,7 @@ async def google_callback(
             secure=True,
             samesite="none",  # Changed to "none" for cross-origin
             max_age=max_age,
-            domain=".silentlaboratories.com"  # Set to your root domain with leading dot
+            domain=".silencelaboratories.com"  # Set to your root domain with leading dot
         )
 
         if not existing_user:
