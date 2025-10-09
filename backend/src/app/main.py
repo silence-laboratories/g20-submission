@@ -7,21 +7,10 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from .api import router
 from .core.config import settings
-from .core.setup import create_application, lifespan_factory
+from .core.setup import create_application
 
 
-@asynccontextmanager
-async def lifespan_with_admin(app: FastAPI) -> AsyncGenerator[None, None]:
-    """Custom lifespan that includes admin initialization."""
-    # Get the default lifespan
-    default_lifespan = lifespan_factory(settings)
-
-    # Run the default lifespan initialization and our admin initialization
-    async with default_lifespan(app):
-        yield
-
-
-app = create_application(router=router, settings=settings, lifespan=lifespan_with_admin)
+app = create_application(router=router, settings=settings)
 
 app.add_middleware(
     CORSMiddleware,
