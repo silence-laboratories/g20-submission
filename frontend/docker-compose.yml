@@ -6,10 +6,7 @@ services:
       args:
         # Pass build-time environment variables
         - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
-        - NEXT_PUBLIC_SIGN_IN_URL=${NEXT_PUBLIC_SIGN_IN_URL}
-        - NEXT_PUBLIC_SIGN_UP_URL=${NEXT_PUBLIC_SIGN_UP_URL}
-        - NEXT_PUBLIC_AFTER_SIGN_IN_URL=${NEXT_PUBLIC_AFTER_SIGN_IN_URL}
-        - NEXT_PUBLIC_AFTER_SIGN_UP_URL=${NEXT_PUBLIC_AFTER_SIGN_UP_URL}
+        - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${NEXT_PUBLIC_GOOGLE_CLIENT_ID}
     env_file:
       - .env
     ports:

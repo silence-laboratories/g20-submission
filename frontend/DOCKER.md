@@ -20,10 +20,7 @@ Then edit `.env` with your actual values:
 
 ```env
 NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
-NEXT_PUBLIC_SIGN_IN_URL=/auth/sign-in
-NEXT_PUBLIC_SIGN_UP_URL=/auth/sign-up
-NEXT_PUBLIC_AFTER_SIGN_IN_URL=/dashboard/overview
-NEXT_PUBLIC_AFTER_SIGN_UP_URL=/dashboard/overview
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id-here
 # ... other variables
 ```
 

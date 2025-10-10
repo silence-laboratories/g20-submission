@@ -1,0 +1,119 @@
+# =================================================================
+# Backend Environment Variables Template
+# =================================================================
+# Copy this file to 'src/.env' and update the values
+# Command: cp env-template.txt src/.env
+# =================================================================
+
+# =================================================================
+# Application Settings
+# =================================================================
+APP_NAME="G20 Loan Application"
+APP_DESCRIPTION="G20 TechSprint 2025 Submission"
+APP_VERSION="0.1.0"
+
+# =================================================================
+# Database Configuration (PostgreSQL)
+# =================================================================
+POSTGRES_USER=sl_admin
+POSTGRES_PASSWORD=password
+POSTGRES_SERVER=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=sl_compute_platform
+
+# Optional: Full database URL (overrides individual settings if provided)
+# POSTGRES_URL=postgresql://sl_admin:password@localhost:5432/sl_compute_platform
+
+# =================================================================
+# Security Settings
+# =================================================================
+# Generate a secure secret key using:
+# python -c "import secrets; print(secrets.token_urlsafe(32))"
+# OR: openssl rand -hex 32
+SECRET_KEY=your-secret-key-here-change-this-in-production
+
+# JWT Configuration
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
+
+# =================================================================
+# Google OAuth Configuration
+# =================================================================
+# Get these from Google Cloud Console: https://console.cloud.google.com/
+# 1. Create/select a project
+# 2. Enable Google+ API
+# 3. Create OAuth 2.0 credentials
+# 4. Add authorized redirect URIs
+GOOGLE_CLIENT_ID=your-google-client-id-here
+GOOGLE_CLIENT_SECRET=your-google-client-secret-here
+GOOGLE_REDIRECT_URI=http://localhost:3000
+
+# =================================================================
+# Redis Cache Configuration (Optional)
+# =================================================================
+# Uncomment these lines if you're using Redis for caching
+# REDIS_CACHE_HOST=localhost
+# REDIS_CACHE_PORT=6379
+
+# =================================================================
+# Redis Queue Configuration (Optional)
+# =================================================================
+# Uncomment if using Redis for background job queues
+# REDIS_QUEUE_HOST=localhost
+# REDIS_QUEUE_PORT=6379
+
+# =================================================================
+# Redis Rate Limiter Configuration (Optional)
+# =================================================================
+# Uncomment if using Redis for rate limiting
+# REDIS_RATE_LIMIT_HOST=localhost
+# REDIS_RATE_LIMIT_PORT=6379
+
+# =================================================================
+# Rate Limiting Settings (Optional)
+# =================================================================
+# DEFAULT_RATE_LIMIT_LIMIT=10
+# DEFAULT_RATE_LIMIT_PERIOD=3600
+
+# =================================================================
+# Client-Side Cache Settings
+# =================================================================
+CLIENT_CACHE_MAX_AGE=60
+
+# =================================================================
+# CRUD Admin Panel Configuration (Optional)
+# =================================================================
+# CRUD_ADMIN_ENABLED=true
+# CRUD_ADMIN_MOUNT_PATH=/admin
+# CRUD_ADMIN_MAX_SESSIONS=10
+# CRUD_ADMIN_SESSION_TIMEOUT=1440
+# SESSION_SECURE_COOKIES=true
+
+# Admin Event Tracking
+# CRUD_ADMIN_TRACK_EVENTS=true
+# CRUD_ADMIN_TRACK_SESSIONS=true
+
+# Admin Redis Settings (Optional)
+# CRUD_ADMIN_REDIS_ENABLED=false
+# CRUD_ADMIN_REDIS_HOST=localhost
+# CRUD_ADMIN_REDIS_PORT=6379
+# CRUD_ADMIN_REDIS_DB=0
+# CRUD_ADMIN_REDIS_PASSWORD=None
+# CRUD_ADMIN_REDIS_SSL=false
+
+# =================================================================
+# Environment Settings
+# =================================================================
+# Options: local, staging, production
+ENVIRONMENT=local
+
+# =================================================================
+# Important Notes:
+# =================================================================
+# 1. Copy this file to 'src/.env' in the backend directory
+# 2. Never commit the actual '.env' file to version control
+# 3. Update all placeholder values with your actual configuration
+# 4. Keep your secret keys and credentials private
+# 5. Use different credentials for production environments
+# =================================================================

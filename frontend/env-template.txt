@@ -1,4 +1,12 @@
 # =================================================================
+# Frontend Environment Variables Template
+# =================================================================
+# Copy this file to '.env' and update the values
+# Command: cp env-template.txt .env
+# =================================================================
+
+
+# =================================================================
 # Backend API Configuration
 # =================================================================
 # Configure the backend API URL for authentication and data requests
@@ -7,22 +15,15 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 
 
 # =================================================================
-# Authentication Configuration (Custom Backend)
+# Google OAuth Configuration
 # =================================================================
-# The application now uses a custom backend for authentication
-# instead of Clerk. The backend handles Google OAuth and JWT tokens.
+# Configure the Google OAuth using the Google Client ID
 
-# Authentication Redirect URLs
-# These control where users are directed after authentication actions
-
-NEXT_PUBLIC_SIGN_IN_URL="/auth/sign-in"
-NEXT_PUBLIC_SIGN_UP_URL="/auth/sign-up"
-NEXT_PUBLIC_AFTER_SIGN_IN_URL="/dashboard/overview"
-NEXT_PUBLIC_AFTER_SIGN_UP_URL="/dashboard/overview"
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id-here
 
 
 # =================================================================
-# Error Tracking Configuration (Sentry)
+# Error Tracking via Sentry (Optional)
 # =================================================================
 # To set up Sentry error tracking:
 # 1. Create an account at https://sentry.io
@@ -32,14 +33,14 @@ NEXT_PUBLIC_AFTER_SIGN_UP_URL="/dashboard/overview"
 # Step 1: Sentry DSN (Required)
 # Found at: Settings > Projects > [Your Project] > Client Keys (DSN)
 
-NEXT_PUBLIC_SENTRY_DSN=    #Example: https://****@****.ingest.sentry.io/****
+# NEXT_PUBLIC_SENTRY_DSN=    #Example: https://****@****.ingest.sentry.io/****
 
 
 # Step 2: Organization & Project Details
 # Found at: Settings > Organization > General Settings
 
-NEXT_PUBLIC_SENTRY_ORG=  # Example: acme-corp
-NEXT_PUBLIC_SENTRY_PROJECT=  # Example: nextjs-dashboard
+# NEXT_PUBLIC_SENTRY_ORG=  # Example: acme-corp
+# NEXT_PUBLIC_SENTRY_PROJECT=  # Example: nextjs-dashboard
 
 
 # Step 3: Sentry Auth Token
@@ -47,13 +48,13 @@ NEXT_PUBLIC_SENTRY_PROJECT=  # Example: nextjs-dashboard
 # Sentry can automatically provide readable stack traces for errors using source maps, requiring a Sentry auth token.
 # More info: https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#step-4-add-readable-stack-traces-with-source-maps-optional
 
-SENTRY_AUTH_TOKEN=    #Example: sntrys_************************************
+# SENTRY_AUTH_TOKEN=    #Example: sntrys_************************************
 
 
 # Step 4: Environment Control (Optional)
 # Set to 'true' to disable Sentry in development
 
-NEXT_PUBLIC_SENTRY_DISABLED= "false"
+# NEXT_PUBLIC_SENTRY_DISABLED= "false"
 
 
 # =================================================================
@@ -63,3 +64,4 @@ NEXT_PUBLIC_SENTRY_DISABLED= "false"
 # 2. Never commit the actual '.env' file to version control
 # 3. Make sure to replace all placeholder values with real ones
 # 4. Keep your secret keys private and never share them
+
