@@ -27,6 +27,7 @@ export type Bank = {
   interest: string;
   interest_rate_min?: number;
   interest_rate_max?: number;
+  country?: string;
 };
 
 export type Loan = {

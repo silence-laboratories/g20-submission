@@ -23,12 +23,30 @@ import { useEffect, useState } from 'react';
 import { apiClient } from '@/lib/api';
 import { SME } from '@/types';
 import PageContainer from '@/components/layout/page-container';
+import { Bank } from '@/store/loan-store';
 
 export default function ProfileViewPage() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'profile' | 'security'>('profile');
-
   const [sme, setSme] = useState<SME | null>(null);
+  const [bank, setBank] = useState<Bank | null>(null);
+
+  const getBank = async () => {
+    if (user?.entityId) {
+      const response = await apiClient.bank.get(user?.entityId);
+      setBank({
+        id: response.data.id,
+        name: response.data.name,
+        country: response.data.country,
+        interest_rate_min: response.data.interest_rate_min,
+        interest_rate_max: response.data.interest_rate_max,
+        description: "Corporate Banking services",
+        logo: '🏦',
+        interest: `${response.data.interest_rate_min} - ${response.data.interest_rate_max}%`
+      });
+
+    }
+  };
 
   const getSME = async () => {
     if (user?.entityId) {
@@ -45,8 +63,8 @@ export default function ProfileViewPage() {
   };
 
   useEffect(() => {
-    getSME();
-  }, [user, getSME]);
+    user?.entityType === "sme" ? getSME() : getBank();
+  }, [user, getSME, getBank]);
 
   return (
     <PageContainer scrollable>
@@ -64,11 +82,10 @@ export default function ProfileViewPage() {
             <nav className='flex gap-2 lg:flex-col'>
               <button
                 onClick={() => setActiveTab('profile')}
-                className={`flex w-full flex-1 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors lg:flex-none ${
-                  activeTab === 'profile'
-                    ? 'bg-accent text-accent-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-                }`}
+                className={`flex w-full flex-1 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors lg:flex-none ${activeTab === 'profile'
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                  }`}
               >
                 <IconUser className='h-4 w-4' />
                 <span className='sm:inline'>Profile</span>
@@ -76,14 +93,13 @@ export default function ProfileViewPage() {
 
               <button
                 onClick={() => setActiveTab('security')}
-                className={`flex w-full flex-1 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors lg:flex-none ${
-                  activeTab === 'security'
-                    ? 'bg-accent text-accent-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-                }`}
+                className={`flex w-full flex-1 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors lg:flex-none ${activeTab === 'security'
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                  }`}
               >
                 <IconBuilding className='h-4 w-4' />
-                <span className='sm:inline'>SME details</span>
+                <span className='sm:inline'>{user?.entityType === "sme" ? "SME details" : "Bank details"}</span>
               </button>
             </nav>
           </div>
@@ -151,10 +167,10 @@ export default function ProfileViewPage() {
                     </div>
                     <div className='min-w-0 flex-1'>
                       <h3 className='text-foreground truncate text-lg font-semibold sm:text-xl'>
-                        {sme?.name || 'Company Name'}
+                        {user?.entityType === "sme" ? sme?.name : bank?.name || 'Company Name'}
                       </h3>
                       <p className='text-muted-foreground text-xs sm:text-sm'>
-                        SME Business Profile
+                        {user?.entityType === "sme" ? "SME Business Profile" : "Bank Profile"}
                       </p>
                     </div>
                     <Badge
@@ -166,124 +182,130 @@ export default function ProfileViewPage() {
                   </div>
                 </div>
 
-                <Separator />
+
 
                 {/* Company Information */}
-                <div className='space-y-4 sm:space-y-6'>
-                  <h3 className='text-foreground text-base font-semibold sm:text-lg'>
-                    Company Information
-                  </h3>
+                {user?.entityType === "sme" && (
+                  <>
+                    <Separator />
+                    <div className='space-y-4 sm:space-y-6'>
+                      <h3 className='text-foreground text-base font-semibold sm:text-lg'>
+                        {user?.entityType === "sme" ? "Company Information" : "Bank Information"}
+                      </h3>
 
-                  <div className='grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2'>
-                    {/* Company Details */}
-                    <div className='space-y-4'>
-                      <div className='border-border bg-card rounded-lg border p-4'>
-                        <div className='mb-3 flex items-center gap-3'>
-                          <IconId className='text-primary h-5 w-5' />
-                          <h4 className='text-foreground font-medium'>
-                            Registration Details
-                          </h4>
-                        </div>
-                        <div className='space-y-2'>
-                          <div>
-                            <p className='text-muted-foreground text-sm'>
-                              Registration Number
-                            </p>
-                            <p className='text-foreground text-sm font-medium'>
-                              {sme?.registrationNumber || 'Not provided'}
-                            </p>
-                          </div>
-                          {sme?.din && (
-                            <div>
-                              <p className='text-muted-foreground text-sm'>
-                                Director Identification Number
-                              </p>
-                              <p className='text-foreground text-sm font-medium'>
-                                {sme.din}
-                              </p>
+
+                      <div className='grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2'>
+                        {/* Company Details */}
+                        <div className='space-y-4'>
+                          <div className='border-border bg-card rounded-lg border p-4'>
+                            <div className='mb-3 flex items-center gap-3'>
+                              <IconId className='text-primary h-5 w-5' />
+                              <h4 className='text-foreground font-medium'>
+                                Registration Details
+                              </h4>
                             </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className='border-border bg-card rounded-lg border p-4'>
-                        <div className='mb-3 flex items-center gap-3'>
-                          <IconUserCheck className='text-primary h-5 w-5' />
-                          <h4 className='text-foreground font-medium'>
-                            Director Information
-                          </h4>
-                        </div>
-                        <div className='space-y-2'>
-                          <div>
-                            <p className='text-muted-foreground text-sm'>
-                              Director Name
-                            </p>
-                            <p className='text-foreground text-sm font-medium'>
-                              {sme?.director || 'Not provided'}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Contact & Location */}
-                    <div className='space-y-4'>
-                      <div className='border-border bg-card rounded-lg border p-4'>
-                        <div className='mb-3 flex items-center gap-3'>
-                          <IconMapPin className='text-primary h-5 w-5' />
-                          <h4 className='text-foreground font-medium'>
-                            Location
-                          </h4>
-                        </div>
-                        <div className='space-y-2'>
-                          <div>
-                            <p className='text-muted-foreground text-sm'>
-                              Country
-                            </p>
-                            <p className='text-foreground text-sm font-medium'>
-                              {sme?.country || 'Not specified'}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className='border-border bg-card rounded-lg border p-4'>
-                        <div className='mb-3 flex items-center gap-3'>
-                          <IconPhone className='text-primary h-5 w-5' />
-                          <h4 className='text-foreground font-medium'>
-                            Contact Information
-                          </h4>
-                        </div>
-                        <div className='space-y-2'>
-                          <div>
-                            <p className='text-muted-foreground text-sm'>
-                              Registered Phone
-                            </p>
-                            <p className='text-foreground text-sm font-medium'>
-                              {sme?.registeredPhoneNumber
-                                ? `${sme.countryCode || ''}${sme.registeredPhoneNumber}`
-                                : 'Not provided'}
-                            </p>
-                          </div>
-                          {sme?.phoneNumber && (
-                            <div>
-                              <p className='text-muted-foreground text-sm'>
-                                Alternative Phone
-                              </p>
-                              <p className='text-foreground text-sm font-medium'>
-                                {sme.countryCode || ''}
-                                {sme.phoneNumber}
-                              </p>
+                            <div className='space-y-2'>
+                              <div>
+                                <p className='text-muted-foreground text-sm'>
+                                  Registration Number
+                                </p>
+                                <p className='text-foreground text-sm font-medium'>
+                                  {sme?.registrationNumber || 'Not provided'}
+                                </p>
+                              </div>
+                              {sme?.din && (
+                                <div>
+                                  <p className='text-muted-foreground text-sm'>
+                                    Director Identification Number
+                                  </p>
+                                  <p className='text-foreground text-sm font-medium'>
+                                    {sme.din}
+                                  </p>
+                                </div>
+                              )}
                             </div>
-                          )}
+                          </div>
+
+                          <div className='border-border bg-card rounded-lg border p-4'>
+                            <div className='mb-3 flex items-center gap-3'>
+                              <IconUserCheck className='text-primary h-5 w-5' />
+                              <h4 className='text-foreground font-medium'>
+                                Director Information
+                              </h4>
+                            </div>
+                            <div className='space-y-2'>
+                              <div>
+                                <p className='text-muted-foreground text-sm'>
+                                  Director Name
+                                </p>
+                                <p className='text-foreground text-sm font-medium'>
+                                  {sme?.director || 'Not provided'}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Contact & Location */}
+                        <div className='space-y-4'>
+                          <div className='border-border bg-card rounded-lg border p-4'>
+                            <div className='mb-3 flex items-center gap-3'>
+                              <IconMapPin className='text-primary h-5 w-5' />
+                              <h4 className='text-foreground font-medium'>
+                                Location
+                              </h4>
+                            </div>
+                            <div className='space-y-2'>
+                              <div>
+                                <p className='text-muted-foreground text-sm'>
+                                  Country
+                                </p>
+                                <p className='text-foreground text-sm font-medium'>
+                                  {sme?.country || 'Not specified'}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className='border-border bg-card rounded-lg border p-4'>
+                            <div className='mb-3 flex items-center gap-3'>
+                              <IconPhone className='text-primary h-5 w-5' />
+                              <h4 className='text-foreground font-medium'>
+                                Contact Information
+                              </h4>
+                            </div>
+                            <div className='space-y-2'>
+                              <div>
+                                <p className='text-muted-foreground text-sm'>
+                                  Registered Phone
+                                </p>
+                                <p className='text-foreground text-sm font-medium'>
+                                  {sme?.registeredPhoneNumber
+                                    ? `${sme.countryCode || ''}${sme.registeredPhoneNumber}`
+                                    : 'Not provided'}
+                                </p>
+                              </div>
+                              {sme?.phoneNumber && (
+                                <div>
+                                  <p className='text-muted-foreground text-sm'>
+                                    Alternative Phone
+                                  </p>
+                                  <p className='text-foreground text-sm font-medium'>
+                                    {sme.countryCode || ''}
+                                    {sme.phoneNumber}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Banking Information */}
-                {(sme?.bankAccountNumber || sme?.bankId) && (
+                    </div>
+                  </>
+                )}
+
+                {user?.entityType === "sme" && (sme?.bankAccountNumber || sme?.bankId) && (
                   <>
                     <Separator />
                     <div className='space-y-4 sm:space-y-6'>

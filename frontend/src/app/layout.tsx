@@ -11,6 +11,7 @@ import './globals.css';
 import './theme.css';
 import Script from 'next/script';
 import 'flag-icons/css/flag-icons.min.css';
+import Footer from '@/components/layout/footer';
 
 const META_THEME_COLORS = {
   light: '#ffffff',
@@ -74,6 +75,9 @@ export default async function RootLayout({
             <Providers activeThemeValue={activeThemeValue as string}>
               <Toaster richColors />
               {children}
+              <div className='fixed bottom-0 left-0 right-0'>
+                <Footer />
+              </div>
             </Providers>
           </ThemeProvider>
         </NuqsAdapter>
