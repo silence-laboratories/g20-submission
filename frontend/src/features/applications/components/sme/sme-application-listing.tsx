@@ -15,7 +15,6 @@ export default async function SMEApplicationListingPage({
 }: {
   user: User;
 }) {
-  console.log(user);
 
   let loanData = [];
   let totalProducts = 0;
@@ -23,7 +22,6 @@ export default async function SMEApplicationListingPage({
   if (user.entityId) {
     try {
       const response = await apiClient.loans.getBySME(user.entityId);
-      console.log(response);
       loanData = response.data;
       totalProducts = loanData.length;
     } catch (e) {

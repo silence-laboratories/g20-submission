@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { IconExclamationMark } from '@tabler/icons-react';
 import { TrendingUp, DollarSign, Shield, BarChart3, Users, Lock, CheckCircle, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import ProgressStepsCard from './progress-steps-card';
 interface InsightCategory {
     id: string;
     title: string;
@@ -73,9 +74,39 @@ const privacyGuarantees: PrivacyGuarantee[] = [
     }
 ];
 
+const progressSteps = [
+  {
+    id: 1,
+    title: 'Sharing Encrypted Consent',
+    description: 'Approved consent is encrypted and shared from LoanConnect to SME bank'
+  },
+  {
+    id: 2,
+    title: 'Sharing Encrypted Financial Data',
+    description: 'Encrypted financial data is shared from SME bank to LoanConnect'
+  },
+  {
+    id: 3,
+    title: 'Sharing Encrypted Tax Data',
+    description: 'Encrypted tax data is shared from Tax Authorities to LoanConnect'
+  },
+  {
+    id: 4,
+    title: 'Sharing Encrypted Credit Data',
+    description: 'Encrypted credit data is shared from Credit Bureaus to LoanConnect'
+  },
+  {
+    id: 5,
+    title: 'Computation of Encrypted data',
+    description: 'Insights are generated on the encrypted data received from multiple data sources'
+  }
+];
+
 const FinalStep = () => {
     const router = useRouter();
-    return <div className='space-y-8'>
+    return <div className='flex gap-4'>
+        <ProgressStepsCard steps={progressSteps} currentStep={6} />
+        <div className='flex-1 space-y-8'>
         {/* Privacy Guarantees Section */}
         {/* <div>
             <Card className='border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20'>
@@ -134,6 +165,7 @@ const FinalStep = () => {
 
             <Button className='mt-8 float-right cursor-pointer' onClick={() => router.push('/dashboard/applications')}>Proceed to Applications</Button>
         </div>
+    </div>
     </div>;
 };
 

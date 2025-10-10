@@ -141,11 +141,11 @@ export const columns: ColumnDef<Application>[] = [
       const status = cell.getValue<Application['application_status']>();
       const variant =
         status === 'approved'
-          ? 'default'
+          ? 'success'
           : status === 'under_review'
             ? 'secondary'
             : status === 'pending'
-              ? 'outline'
+              ? 'secondary'
               : 'destructive';
       const icon =
         status === 'approved'

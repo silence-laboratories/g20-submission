@@ -24,8 +24,6 @@ export function ProductTable<TData, TValue>({
   const { getLoans } = useLoanStore();
   const loanDataFromStore = getLoans();
 
-  console.log(loanDataFromStore);
-
   const { table } = useDataTable({
     data, // product data
     columns, // product columns

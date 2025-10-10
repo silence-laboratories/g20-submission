@@ -1,8 +1,9 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { IconExclamationMark } from '@tabler/icons-react';
-import { TrendingUp, DollarSign, Shield, BarChart3, Users, Lock, CheckCircle, ShieldCheck } from 'lucide-react';    
+import { IconCircle, IconExclamationMark } from '@tabler/icons-react';
+import { Lock, CheckCircle, ShieldCheck } from 'lucide-react';
+import ProgressStepsCard from './progress-steps-card';
 
 interface PrivacyGuarantee {
     id: string;
@@ -32,36 +33,36 @@ const privacyGuarantees: PrivacyGuarantee[] = [
     }
 ];
 
+const progressSteps = [
+    {
+        id: 1,
+        title: 'Sharing Encrypted Consent',
+        description: 'Approved consent is encrypted and shared from LoanConnect to SME bank'
+    },
+    {
+        id: 2,
+        title: 'Sharing Encrypted Financial Data',
+        description: 'Encrypted financial data is shared from SME bank to LoanConnect'
+    },
+    {
+        id: 3,
+        title: 'Sharing Encrypted Tax Data',
+        description: 'Encrypted tax data is shared from Tax Authorities to LoanConnect'
+    },
+    {
+        id: 4,
+        title: 'Sharing Encrypted Credit Data',
+        description: 'Encrypted credit data is shared from Credit Bureaus to LoanConnect'
+    },
+    {
+        id: 5,
+        title: 'Computation of Encrypted data',
+        description: 'Insights are generated on the encrypted data received from multiple data sources'
+    }
+];
+
 const FirstStep = ({ startScene }: { startScene: () => void }) => {
     return <div className='space-y-8'>
-        {/* Privacy Guarantees Section */}
-        {/* <div>
-            <Card className='border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20'>
-                <CardContent className='px-4 py-4'>
-                    <h3 className='text-lg font-semibold text-green-100'>
-                        Privacy Guarantees
-                    </h3>
-                    {privacyGuarantees.map((guarantee) => (
-                        <div
-                            className='my-2 flex items-center space-x-3'
-                            key={guarantee.id}
-                        >
-                            <div className='flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50'>
-                                <div className='text-green-600 dark:text-green-400'>
-                                    {guarantee.icon}
-                                </div>
-                            </div>
-                            <div className='min-w-0 flex-1'>
-                                <h3 className='text-sm text-green-300'>
-                                    {guarantee.title}
-                                </h3>
-                            </div>
-                        </div>
-                    ))}
-                </CardContent>
-            </Card>
-        </div> */}
-
         <Card className='mt-4 mb-4 border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20'>
             <CardContent>
                 <div>
@@ -82,11 +83,38 @@ const FirstStep = ({ startScene }: { startScene: () => void }) => {
         </Card>
 
         {/* Write a good copy to say to user this what will happen behind the scenes once lona application is submitted */}
-            <p className='text-foreground'>
-                Once the loan application is submitted, the following will happen behind the scenes:
-            </p>
+        <p className='text-foreground mb-6'>
+            Once the loan application is submitted, the following will happen behind the scenes:
+        </p>
 
-            <Button className='float-right cursor-pointer' onClick={startScene}>Proceed</Button>
+        <div className='flex items-center gap-2 mb-4'>
+            <IconCircle className='text-primary' />
+            <h4 className='text-foreground font-medium'>
+                Sharing Encrypted Consent
+            </h4>
+        </div>
+        <div className='flex items-center gap-2 mb-4'>
+            <IconCircle className='text-primary' />
+            <h4 className='text-foreground font-medium'>
+                Sharing Encrypted Financial Data
+            </h4>
+        </div>
+
+        <div className='flex items-center gap-2 mb-4'>
+            <IconCircle className='text-primary' />
+            <h4 className='text-foreground font-medium'>
+                Sharing Encrypted Tax Data
+            </h4>
+        </div>
+        <div className='flex items-center gap-2 mb-2'>
+            <IconCircle className='text-primary' />
+            <h4 className='text-foreground font-sm'>
+                Sharing Encrypted Credit Data
+            </h4>
+
+        </div>
+
+        <Button className='float-right cursor-pointer' onClick={() => startScene()}>Proceed</Button>
     </div>;
 };
 

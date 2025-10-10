@@ -1,3 +1,5 @@
+'use client';
+
 import PageContainer from '@/components/layout/page-container';
 
 import {
@@ -7,8 +9,10 @@ import {
   CardDescription
 } from '@/components/ui/card';
 import React from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function OverViewLayout() {
+  const { user } = useAuth();
   return (
     <PageContainer>
       <div className='flex flex-1 flex-col space-y-2'>
@@ -19,23 +23,24 @@ export default function OverViewLayout() {
         <p className='mb-6'>Get started below</p>
 
         <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-3 px-24 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-3'>
-          <a href='/dashboard/apply-loan'>
-            <Card className='@container/card'>
-              <CardHeader>
-                <CardTitle className='text-xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                  Apply for a Loan
-                </CardTitle>
-                <CardDescription>
-                  Provide loan application details
-                </CardDescription>
-                {/* <CardAction>
+          {user?.entityType === 'sme' &&
+            <a href='/dashboard/apply-loan'>
+              <Card className='@container/card'>
+                <CardHeader>
+                  <CardTitle className='text-xl font-semibold tabular-nums @[250px]/card:text-3xl'>
+                    Apply for a Loan
+                  </CardTitle>
+                  <CardDescription>
+                    Provide loan application details
+                  </CardDescription>
+                  {/* <CardAction>
                   <Badge variant='outline'>
                     <IconTrendingUp />
                     +12.5%
                   </Badge>
                 </CardAction> */}
-              </CardHeader>
-              {/* <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+                </CardHeader>
+                {/* <CardFooter className='flex-col items-start gap-1.5 text-sm'>
                 <div className='line-clamp-1 flex gap-2 font-medium'>
                   Trending up this month <IconTrendingUp className='size-4' />
                 </div>
@@ -43,8 +48,8 @@ export default function OverViewLayout() {
                   Visitors for the last 6 months
                 </div>
               </CardFooter> */}
-            </Card>
-          </a>
+              </Card>
+            </a>}
           <a href='/dashboard/applications'>
             <Card className='@container/card'>
               <CardHeader>

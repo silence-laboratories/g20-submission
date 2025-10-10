@@ -16,16 +16,16 @@ import { Loan, useLoanActions } from '@/store/loan-store';
 import { useEffect, useState } from 'react';
 import { apiClient } from '@/lib/api';
 import { useRouter } from 'next/navigation';
-import { IconCheck, IconCircleCheck, IconEye } from '@tabler/icons-react';
+import { IconCheck, IconCircleCheck, IconCircleX, IconEye } from '@tabler/icons-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function ViewLoanDialog({ loan }: { loan: any }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Badge variant='default' className='text-medium cursor-pointer'>
-          <IconEye className='mr-1 h-3 w-3' /> View Loan
-        </Badge>
+        <Button variant='outline' size="sm" className='text-sm cursor-pointer'>
+          <IconEye className='mr-1 h-3 w-3' /> View
+        </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
@@ -42,6 +42,14 @@ export default function ViewLoanDialog({ loan }: { loan: any }) {
                         <CardTitle className="text-xl font-semibold">Loan Details</CardTitle>
                     </CardHeader> */}
               <CardContent className='space-y-4'>
+                <div className='space-y-2'>
+                  <h4 className='text-foreground font-medium'>
+                    Application ID:
+                  </h4>
+                  <p className='text-muted-foreground text-sm'>
+                    {loan?.id}
+                  </p>
+                </div>
                 <div className='space-y-2'>
                   <h4 className='text-foreground font-medium'>
                     Selected Institution for Loan:
@@ -72,17 +80,34 @@ export default function ViewLoanDialog({ loan }: { loan: any }) {
                 <div className='space-y-2'>
                   {loan.consent_status === 'approved' ? (
                     <div className='flex items-center gap-2'>
-                      <h4 className='text-foreground font-medium'>
-                        {' '}
+                      <h4 className='text-green-500 font-medium'>
                         Consent Approved
                       </h4>
                       <IconCircleCheck className='text-green-500' />
                     </div>
                   ) : (
-                    <h4 className='text-foreground font-medium'>
+                    <h4 className='text-yellow-500 font-medium'>
                       Consent Pending
                     </h4>
                   )}
+                </div>
+
+                <div className='space-y-2'>
+                  {loan.application_status === "approved" ? (
+                    <div className='flex items-center gap-2'>
+                      <h4 className='text-green-500 font-medium'>
+                        Loan Approved
+                      </h4>
+                      <IconCircleCheck className='text-green-500' />
+                    </div>
+                  ) : loan.application_status === "rejected" ? (
+                    <div className='flex items-center gap-2'>
+                      <h4 className='text-red-500 font-medium'>
+                        Loan Rejected
+                      </h4>
+                      <IconCircleX className='text-red-500' />
+                    </div>
+                  ) : null}
                 </div>
               </CardContent>
             </Card>

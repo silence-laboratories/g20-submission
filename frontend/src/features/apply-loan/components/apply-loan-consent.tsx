@@ -336,7 +336,7 @@ export default function DataAccessConsent({
                           </div>
                           <p className='text-sm text-green-800 dark:text-green-200'>
                             Requested insights will be generated from financial
-                            data soruces like Banks, Tax Authorities, Credit
+                            data sources like Banks, Tax Authorities, Credit
                             Bureaus etc
                           </p>
                         </div>

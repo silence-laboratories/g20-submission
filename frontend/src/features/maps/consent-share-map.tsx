@@ -112,20 +112,20 @@ function ConsentShareMap({ chartID }: { chartID: string }) {
 
       let sa = addCity(
         pointSeries,
-        { latitude: -30.567, longitude: 22.9375 },
-        'SA Mock Bank',
+        { latitude: -22.584152, longitude: 31.044983 },
+        'LoanConnect',
         -10, 10
       );
       let india = addCity(
         pointSeries,
-        { latitude: 22.74, longitude: 79.1025 },
-        'LoanConnect',
+        { latitude: -33.5883582, longitude: 18.6091197 },
+        'SA Mock Bank',
         -10, -40
       );
       // let singapore = addCity(pointSeries, { latitude: 1.3521, longitude: 103.8198 }, "Singapore Data Center");
 
       let lineDataItem = lineSeries.pushDataItem({});
-      lineDataItem.set('pointsToConnect', [india, sa]);
+      lineDataItem.set('pointsToConnect', [sa, india]);
 
       let dataTransferSeries = chart.series.push(
         am5map.MapPointSeries.new(root, {})
@@ -208,7 +208,7 @@ function ConsentShareMap({ chartID }: { chartID: string }) {
       }, 1500);
 
       // Calculate bounding box for the point series to set initial zoom
-      zoomToPoints(polygonSeries, chart);
+      zoomToPoints(polygonSeries);
 
       // Make stuff animate on load
       chart.appear(1000, 100);
@@ -291,40 +291,17 @@ function ConsentShareMap({ chartID }: { chartID: string }) {
     return image;
   }
 
-  const zoomToPoints = (polygonSeries: any, chart: any) => {
+  const zoomToPoints = (polygonSeries: any) => {
     polygonSeries.events.on('datavalidated', function () {
-      const points = [
-        { latitude: -30.567, longitude: 22.9375 },
-        { latitude: 1.3521, longitude: 103.8198 }
-      ];
 
-      const latitudes = points.map((p) => p.latitude);
-      const longitudes = points.map((p) => p.longitude);
-
-      const minLat = Math.min(...latitudes);
-      const maxLat = Math.max(...latitudes);
-      const minLng = Math.min(...longitudes);
-      const maxLng = Math.max(...longitudes);
-
-      // Add some padding around the points
-      const latPadding = (maxLat - minLat) * 0.2;
-      const lngPadding = (maxLng - minLng) * 0.2;
-
-      const bounds = {
-        north: maxLat + latPadding,
-        south: minLat - latPadding,
-        east: maxLng + lngPadding,
-        west: minLng - lngPadding
-      };
-      chart.zoomToGeoPoint(
-        {
-          longitude: (bounds.east + bounds.west) / 2 - 50,
-          latitude: (bounds.north + bounds.south) / 2 + 11
-        },
-        4
-      );
+        const dataItem = polygonSeries.dataItems.find(
+            (item: any) => item.dataContext?.id === "ZA"
+        );
+        if (dataItem) {
+            polygonSeries.zoomToDataItem(dataItem);
+        }
     });
-  };
+};
 
   return (
     <Card>

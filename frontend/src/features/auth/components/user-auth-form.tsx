@@ -48,7 +48,6 @@ export default function UserAuthForm({ onSuccess, onLogin }: LoginProps) {
           await apiClient.auth.googleCallback('MOCK_LOGIN_CODE');
 
         const authData = backendResponse.data;
-        console.log('Backend response:', authData);
 
         // Update auth state if callback provided
         if (onLogin) {
@@ -60,7 +59,6 @@ export default function UserAuthForm({ onSuccess, onLogin }: LoginProps) {
 
         setTimeout(() => {
           startTransition(() => {
-            console.log('continue with email clicked');
             toast.success('Signed In successfully!');
           });
         }, 1500);

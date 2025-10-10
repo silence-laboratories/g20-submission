@@ -37,7 +37,6 @@ export default function ViewInsightsDialog({ loan }: { loan: any }) {
         { status: 'approved' }
       );
       setIsLoading(false);
-      console.log(updatedLoan.data);
 
       // Refresh the server component data using router.refresh()
       router.refresh();
@@ -60,7 +59,6 @@ export default function ViewInsightsDialog({ loan }: { loan: any }) {
         { status: 'rejected' }
       );
       setIsLoading(false);
-      console.log(updatedLoan.data);
       router.refresh();
       setActionTaken('rejected');
     } catch (e) {
@@ -85,36 +83,55 @@ export default function ViewInsightsDialog({ loan }: { loan: any }) {
           </DialogDescription>
         </DialogHeader>
         <div className='mt-4 flex space-x-4'>
-          <DialogTrigger asChild>
-            <Button
-              className='cursor-pointer bg-green-600 px-6 py-2 text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600'
-              onClick={() => handleApprove(loan)}
-              disabled={isLoading}
-            >
-              <Check className='mr-2 h-4 w-4' />
-              {actionTaken === 'approved'
-                ? 'Loan Approved'
-                : isLoading
-                  ? 'Submitting...'
-                  : 'Approve Loan'}
-            </Button>
-          </DialogTrigger>
-          <DialogTrigger asChild>
-            {actionTaken !== 'approved' && (
+          {loan.applicationStatus === "pending" ?
+            (
+              <>
+                <DialogTrigger asChild>
+                  <Button
+                    className='cursor-pointer bg-green-600 px-6 py-2 text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600'
+                    onClick={() => handleApprove(loan)}
+                    disabled={isLoading}
+                  >
+                    <Check className='mr-2 h-4 w-4' />
+                    {actionTaken === 'approved'
+                      ? 'Loan Approved'
+                      : isLoading
+                        ? 'Submitting...'
+                        : 'Approve Loan'}
+                  </Button>
+                </DialogTrigger>
+                <DialogTrigger asChild>
+                  {actionTaken !== 'approved' && (
+                    <Button
+                      className='cursor-pointer bg-red-600 px-6 py-2 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600'
+                      onClick={() => handleReject(loan)}
+                      disabled={isLoading}
+                    >
+                      <X className='mr-2 h-4 w-4' />
+                      {actionTaken === 'rejected'
+                        ? 'Loan Rejected'
+                        : isLoading
+                          ? 'Submitting...'
+                          : 'Reject Loan'}
+                    </Button>
+                  )}
+                </DialogTrigger>
+              </>
+            ) : loan.applicationStatus === "approved" ? (
               <Button
-                className='cursor-pointer bg-red-600 px-6 py-2 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600'
-                onClick={() => handleReject(loan)}
-                disabled={isLoading}
+                className='bg-green-600 px-6 py-2 text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600'
+              >
+                <Check className='mr-2 h-4 w-4' />
+                Loan Approved
+              </Button>
+            ) : (
+              <Button
+                className='bg-red-600 px-6 py-2 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600'
               >
                 <X className='mr-2 h-4 w-4' />
-                {actionTaken === 'rejected'
-                  ? 'Loan Rejected'
-                  : isLoading
-                    ? 'Submitting...'
-                    : 'Reject Loan'}
+                Loan Rejected
               </Button>
             )}
-          </DialogTrigger>
         </div>
         <LenderAssessmentDashboard loan={loan} />
       </DialogContent>

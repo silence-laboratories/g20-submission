@@ -118,7 +118,7 @@ function InsightSendMap({ chartID }: { chartID: string }) {
     //   );
       let india = addCity(
         pointSeries,
-        { latitude: 22.74, longitude: 79.1025 },
+        { latitude: -28.584152, longitude: 24.044983 },
         'LoanConnect'
       );
       let singapore = addCity(pointSeries, { latitude: 1.3521, longitude: 103.8198 }, "SG Mock Bank");
@@ -133,7 +133,7 @@ function InsightSendMap({ chartID }: { chartID: string }) {
       // Create secure data transfer icon (charts with lock)
       let secureDataIcon = am5.Graphics.new(root, {
         svgPath:
-          'M18,8H17V6A5,5 0 0,0 12,1A5,5 0 0,0 7,6V8H6A2,2 0 0,0 4,10V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V10A2,2 0 0,0 18,8M12,17A2,2 0 0,1 10,15A2,2 0 0,1 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17M15.1,8H8.9V6A3.1,3.1 0 0,1 12,2.9A3.1,3.1 0 0,1 15.1,6V8Z',
+          'M6,11h4v17H6V11z M22,16v12h4V16H22z M14,28h4V4h-4V28z',
         scale: 0.8,
         centerY: am5.p50,
         centerX: am5.p50,
@@ -276,7 +276,7 @@ function InsightSendMap({ chartID }: { chartID: string }) {
   const zoomToPoints = (polygonSeries: any, chart: any) => {
     polygonSeries.events.on('datavalidated', function () {
       const points = [
-        { latitude: 22.74, longitude: 79.1025 },
+        { latitude: -22.584152, longitude: 31.044983 },
         { latitude: 1.3521, longitude: 103.8198 }
       ];
 

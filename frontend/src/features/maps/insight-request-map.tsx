@@ -117,7 +117,7 @@ function InsightRequestMap({ chartID }: { chartID: string }) {
     //   );
       let india = addCity(
         pointSeries,
-        { latitude: 22.74, longitude: 79.1025 },
+        { latitude: -28.584152, longitude: 24.044983 },
         'LoanConnect'
       );
       let singapore = addCity(pointSeries, { latitude: 1.3521, longitude: 103.8198 }, "SG Mock Bank");
@@ -275,7 +275,7 @@ function InsightRequestMap({ chartID }: { chartID: string }) {
   const zoomToPoints = (polygonSeries: any, chart: any) => {
     polygonSeries.events.on('datavalidated', function () {
       const points = [
-        { latitude: 22.74, longitude: 79.1025 },
+        { latitude: -22.584152, longitude: 31.044983 },
         { latitude: 1.3521, longitude: 103.8198 }
       ];
 

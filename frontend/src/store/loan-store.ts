@@ -286,7 +286,6 @@ export const useLoanStore = create<LoanState & LoanActions>()(
       updateConsentStatus: (id: string, status: string, notes?: string) => {
         set((state) => ({
           loans: state.loans.map((loan) => {
-            console.log(loan);
             return loan.id === id
               ? {
                   ...loan,

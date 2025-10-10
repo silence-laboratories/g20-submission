@@ -139,7 +139,6 @@ const NewMap = forwardRef<NewMapRef, NewMapProps>(
         });
 
         picture.events.on('click', function (ev: any) {
-          console.log(ev.target.src);
           // Draw a border around the picture
           ev.target.set('stroke', am5.color('#000'));
           ev.target.set('strokeWidth', 2);

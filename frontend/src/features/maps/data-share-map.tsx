@@ -78,36 +78,6 @@ function DataShareMap({ chartID }: { chartID: string }) {
         strokeDasharray: [5, 5] // Dashed line to show data flow
       });
 
-      // Create point series for markers
-      // https://www.amcharts.com/docs/v5/charts/map-chart/map-point-series/
-      let pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
-
-      pointSeries.bullets.push(function () {
-        let image = am5.Picture.new(root, {
-          src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhLS0gTGljZW5zZTogQ0MwIExpY2Vuc2UuIE1hZGUgYnkgU1ZHIFJlcG86IGh0dHBzOi8vd3d3LnN2Z3JlcG8uY29tL3N2Zy80NzQzOTQvc2VydmVyIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgY2xhc3M9Imljb24iICB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUyOS4wMjQ1OTUgMzcwLjM1MjIyM2MwLTcuNDQ2NjIzLTQuNTM0MTc3LTE2LjExMDE0LTEwLjExODU0OC0xOS4zMzQ1NDlMMjA4LjU2NzM2NyAxNzEuODQzODdDMTk5LjI2MDg3NCAxNjYuNDY5MDYgMTkxLjcwMjMyNiAxNzIuMTg0NDA5IDE5MS43MDIzMjYgMTg0LjU5Mzg2djY0Mi4xNjIzMDdjMCA5LjkyODAzNyA2LjA0NjM2MyAyMS40ODAxODYgMTMuNDkyOTg2IDI1Ljc4MDk4NmwyNzYuNjAzODMyIDE1OS42OTYzNzNjMjYuMDY0MzcyIDE1LjA0ODAzNyA0Ny4yMjU0NTEtMC45NDc3OTUgNDcuMjI1NDUxLTM1LjcwMTg3OVYzNzAuMzUyMjIzeiIgZmlsbD0iIzRFNkZCQiIgLz48cGF0aCBkPSJNODMxLjU1MjI5OCAxOTAuNTQ0OTY3YzAtNC42MDgtMi44MDUyODQtNi43Mjk4MjMtNi4yNjA2ODktNC43MzQyMTRsLTMwMC41ODY4NjUgMTczLjU0NDE4N2MtMy40NTU0MDUgMS45OTU2MDktNi4yNjMwNyA3LjM1NjEzLTYuMjYzMDcgMTEuOTY0MTN2NjE3LjAxOTUzNWMwIDI1LjM0NTE5MSAxNS40MzM4MjMgMzcuMDExNjQ3IDM0LjQ0MjEyMSAyNi4wMzU3OTVsMjcyLjQwNzgxNC0xNTcuMjcyMTEyYzMuNDU1NDA1LTEuOTk1NjA5IDYuMjYwNjg4LTcuMzU4NTEyIDYuMjYwNjg5LTExLjk2NjUxMVYxOTAuNTQ0OTY3eiIgZmlsbD0iIzRENkZCQiIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA5LjA4MjY0MmMtMTkuMDEzMDYtMTAuOTc4MjMzLTQ3LjgyMDgtMTIuMTcxMzEyLTY0LjI4ODE0OS0yLjY2NDc4MkwyMDQuNTE0MjMzIDE2My4xMTM2NzRjLTE2LjQ2NDk2NyA5LjUwNjUzLTE0LjM5NzkxNiAyNi4xMzgxOTUgNC42MTc1MjUgMzcuMTE2NDI4bDI3NS42MTMxNzIgMTU5LjEyNDgzOGMxOS4wMTMwNiAxMC45NzgyMzMgNDcuODIwOCAxMi4xNzM2OTMgNjQuMjg4MTQ5IDIuNjY0NzgxbDI3MS40MDUyNDctMTU2LjY5NTgxNGMxNi40NjczNDktOS41MDY1MyAxNC4zOTc5MTYtMjYuMTM4MTk1LTQuNjE1MTQ1LTM3LjExNjQyOEw1NDAuMjA3NjI4IDkuMDgyNjQyeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA2NjMuNjYxNTQ0Yy0xOS4wMTMwNi0xMC45NzgyMzMtNDcuODIwOC0xMi4xNzM2OTMtNjQuMjg4MTQ5LTIuNjY0NzgxTDIwNC41MTQyMzMgODE3LjY5MjU3N2MtMTYuNDY0OTY3IDkuNTA2NTMtMTQuMzk3OTE2IDI2LjEzODE5NSA0LjYxNzUyNSAzNy4xMTY0MjhsMjc1LjYxMzE3MiAxNTkuMTI0ODM3YzE5LjAxMzA2IDEwLjk3ODIzMyA0Ny44MjA4IDEyLjE3MzY5MyA2NC4yODgxNDkgMi42NjQ3ODFsMjcxLjQwNTI0Ny0xNTYuNjk1ODE0YzE2LjQ2NzM0OS05LjUwNjUzIDE0LjM5NzkxNi0yNi4xMzgxOTUtNC42MTUxNDUtMzcuMTE2NDI4bC0yNzUuNjE1NTUzLTE1OS4xMjQ4Mzd6IiBmaWxsPSIjNEQ2RkJCIiAvPjxwYXRoIGQ9Ik01MTMuMjUyNjE0IDUzMy4yMzk2NjVMMTkzLjQwMDI2IDM0OC41NzE5ODF2MzYuNDI1ODI0bDMxOS44NTIzNTQgMTg0LjY2NTMwMnYtMzYuNDIzNDQyek04MTUuNzgwMzE2IDM1OC41NzM4NDJsLTMwMi41Mjc3MDIgMTc0LjY2NTgyM3YzNi40MjM0NDJsMzAyLjUyNzcwMi0xNzQuNjYzNDQydi0zNi40MjU4MjN6IiBmaWxsPSIjNDQ2N0FFIiAvPjxwYXRoIGQ9Ik00NTQuNjM2OTQ5IDY1OS4xMDU5MzVjMC0yLjEzODQ5My0xLjMwMDI0Mi00LjYyNDY3LTIuOTAyOTIxLTUuNTUxMDMzbC0yMTAuODk4NzU0LTEyMS43NjA3NDRjLTEuNjAyNjc5LTAuOTI2MzYzLTIuOTA1MzAyIDAuMDU3MTUzLTIuOTA1MzAyIDIuMTk1NjQ3djY5LjcwMzQ0MmMwIDIuMTM2MTEyIDEuMzAyNjIzIDQuNjIyMjg4IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNWMxLjYwMjY3OSAwLjkyMzk4MSAyLjkwMjkyMS0wLjA1OTUzNSAyLjkwMjkyMS0yLjE5NTY0NnYtNjkuNzAzNDQyek00NTQuNjM2OTQ5IDgwOS4yNzY3MjZjMC0yLjEzNjExMi0xLjMwMDI0Mi00LjYyMjI4OC0yLjkwMjkyMS01LjU0ODY1MmwtMjEwLjg5ODc1NC0xMjEuNzYzMTI1Yy0xLjYwMjY3OS0wLjkyMzk4MS0yLjkwNTMwMiAwLjA1OTUzNS0yLjkwNTMwMiAyLjE5NTY0NnY2OS43MDM0NDJjMCAyLjEzODQ5MyAxLjMwMjYyMyA0LjYyNDY3IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNmMxLjYwMjY3OSAwLjkyNjM2MyAyLjkwMjkyMS0wLjA1NzE1MyAyLjkwMjkyMS0yLjE5NTY0N3YtNjkuNzAzNDQxeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNDQwLjM0ODU3NyAzNTUuMzE2MDkzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA3LTcuODg0OC00LjU1MzIyOC0xNC4yODgzNzItMTguODgyMDg0LTE0LjI4ODM3Mi0zMS45NzczNzcgMC0xMy4wOTc2NzQgNi40MDM1NzItMjAuMDMyMjk4IDE0LjI4ODM3Mi0xNS40NzkwN3pNNDQwLjM0ODU3NyA0MjEuOTk1MTYzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA2OS03Ljg4NDgtNC41NTMyMjgtMTQuMjg4MzcyLTE4Ljg4MjA4NC0xNC4yODgzNzItMzEuOTc3Mzc2IDAtMTMuMDk3Njc0IDYuNDAzNTcyLTIwLjAzMjI5OCAxNC4yODgzNzItMTUuNDc5MDd6IiBmaWxsPSIjRURFRUYwIiAvPjwvc3ZnPg==',
-          width: 20,
-          height: 20,
-          centerX: am5.p50,
-          centerY: am5.p50,
-          tooltipText: '{title}',
-          cursorOverStyle: 'pointer',
-          tooltipY: 0
-        });
-        return am5.Bullet.new(root, {
-          sprite: image
-        });
-      });
-
-      pointSeries.bullets.push(function () {
-        let label = am5.Label.new(root, {
-          text: '[#FFF]{title}',
-          populateText: true
-        });
-        return am5.Bullet.new(root, {
-          sprite: label
-        });
-      });
-
       let animatedLineSeries = chart.series.push(
         am5map.MapLineSeries.new(root, {})
       );
@@ -123,9 +93,9 @@ function DataShareMap({ chartID }: { chartID: string }) {
       // visible city circles
       citySeries.bullets.push(function () {
         let image = am5.Picture.new(root, {
-          src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhLS0gTGljZW5zZTogQ0MwIExpY2Vuc2UuIE1hZGUgYnkgU1ZHIFJlcG86IGh0dHBzOi8vd3d3LnN2Z3JlcG8uY29tL3N2Zy80NzQzOTQvc2VydmVyIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgY2xhc3M9Imljb24iICB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUyOS4wMjQ1OTUgMzcwLjM1MjIyM2MwLTcuNDQ2NjIzLTQuNTM0MTc3LTE2LjExMDE0LTEwLjExODU0OC0xOS4zMzQ1NDlMMjA4LjU2NzM2NyAxNzEuODQzODdDMTk5LjI2MDg3NCAxNjYuNDY5MDYgMTkxLjcwMjMyNiAxNzIuMTg0NDA5IDE5MS43MDIzMjYgMTg0LjU5Mzg2djY0Mi4xNjIzMDdjMCA5LjkyODAzNyA2LjA0NjM2MyAyMS40ODAxODYgMTMuNDkyOTg2IDI1Ljc4MDk4NmwyNzYuNjAzODMyIDE1OS42OTYzNzNjMjYuMDY0MzcyIDE1LjA0ODAzNyA0Ny4yMjU0NTEtMC45NDc3OTUgNDcuMjI1NDUxLTM1LjcwMTg3OVYzNzAuMzUyMjIzeiIgZmlsbD0iIzRFNkZCQiIgLz48cGF0aCBkPSJNODMxLjU1MjI5OCAxOTAuNTQ0OTY3YzAtNC42MDgtMi44MDUyODQtNi43Mjk4MjMtNi4yNjA2ODktNC43MzQyMTRsLTMwMC41ODY4NjUgMTczLjU0NDE4N2MtMy40NTU0MDUgMS45OTU2MDktNi4yNjMwNyA3LjM1NjEzLTYuMjYzMDcgMTEuOTY0MTN2NjE3LjAxOTUzNWMwIDI1LjM0NTE5MSAxNS40MzM4MjMgMzcuMDExNjQ3IDM0LjQ0MjEyMSAyNi4wMzU3OTVsMjcyLjQwNzgxNC0xNTcuMjcyMTEyYzMuNDU1NDA1LTEuOTk1NjA5IDYuMjYwNjg4LTcuMzU4NTEyIDYuMjYwNjg5LTExLjk2NjUxMVYxOTAuNTQ0OTY3eiIgZmlsbD0iIzRENkZCQiIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA5LjA4MjY0MmMtMTkuMDEzMDYtMTAuOTc4MjMzLTQ3LjgyMDgtMTIuMTcxMzEyLTY0LjI4ODE0OS0yLjY2NDc4MkwyMDQuNTE0MjMzIDE2My4xMTM2NzRjLTE2LjQ2NDk2NyA5LjUwNjUzLTE0LjM5NzkxNiAyNi4xMzgxOTUgNC42MTc1MjUgMzcuMTE2NDI4bDI3NS42MTMxNzIgMTU5LjEyNDgzOGMxOS4wMTMwNiAxMC45NzgyMzMgNDcuODIwOCAxMi4xNzM2OTMgNjQuMjg4MTQ5IDIuNjY0NzgxbDI3MS40MDUyNDctMTU2LjY5NTgxNGMxNi40NjczNDktOS41MDY1MyAxNC4zOTc5MTYtMjYuMTM4MTk1LTQuNjE1MTQ1LTM3LjExNjQyOEw1NDAuMjA3NjI4IDkuMDgyNjQyeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA2NjMuNjYxNTQ0Yy0xOS4wMTMwNi0xMC45NzgyMzMtNDcuODIwOC0xMi4xNzM2OTMtNjQuMjg4MTQ5LTIuNjY0NzgxTDIwNC41MTQyMzMgODE3LjY5MjU3N2MtMTYuNDY0OTY3IDkuNTA2NTMtMTQuMzk3OTE2IDI2LjEzODE5NSA0LjYxNzUyNSAzNy4xMTY0MjhsMjc1LjYxMzE3MiAxNTkuMTI0ODM3YzE5LjAxMzA2IDEwLjk3ODIzMyA0Ny44MjA4IDEyLjE3MzY5MyA2NC4yODgxNDkgMi42NjQ3ODFsMjcxLjQwNTI0Ny0xNTYuNjk1ODE0YzE2LjQ2NzM0OS05LjUwNjUzIDE0LjM5NzkxNi0yNi4xMzgxOTUtNC42MTUxNDUtMzcuMTE2NDI4bC0yNzUuNjE1NTUzLTE1OS4xMjQ4Mzd6IiBmaWxsPSIjNEQ2RkJCIiAvPjxwYXRoIGQ9Ik01MTMuMjUyNjE0IDUzMy4yMzk2NjVMMTkzLjQwMDI2IDM0OC41NzE5ODF2MzYuNDI1ODI0bDMxOS44NTIzNTQgMTg0LjY2NTMwMnYtMzYuNDIzNDQyek04MTUuNzgwMzE2IDM1OC41NzM4NDJsLTMwMi41Mjc3MDIgMTc0LjY2NTgyM3YzNi40MjM0NDJsMzAyLjUyNzcwMi0xNzQuNjYzNDQydi0zNi40MjU4MjN6IiBmaWxsPSIjNDQ2N0FFIiAvPjxwYXRoIGQ9Ik00NTQuNjM2OTQ5IDY1OS4xMDU5MzVjMC0yLjEzODQ5My0xLjMwMDI0Mi00LjYyNDY3LTIuOTAyOTIxLTUuNTUxMDMzbC0yMTAuODk4NzU0LTEyMS43NjA3NDRjLTEuNjAyNjc5LTAuOTI2MzYzLTIuOTA1MzAyIDAuMDU3MTUzLTIuOTA1MzAyIDIuMTk1NjQ3djY5LjcwMzQ0MmMwIDIuMTM2MTEyIDEuMzAyNjIzIDQuNjIyMjg4IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNWMxLjYwMjY3OSAwLjkyMzk4MSAyLjkwMjkyMS0wLjA1OTUzNSAyLjkwMjkyMS0yLjE5NTY0NnYtNjkuNzAzNDQyek00NTQuNjM2OTQ5IDgwOS4yNzY3MjZjMC0yLjEzNjExMi0xLjMwMDI0Mi00LjYyMjI4OC0yLjkwMjkyMS01LjU0ODY1MmwtMjEwLjg5ODc1NC0xMjEuNzYzMTI1Yy0xLjYwMjY3OS0wLjkyMzk4MS0yLjkwNTMwMiAwLjA1OTUzNS0yLjkwNTMwMiAyLjE5NTY0NnY2OS43MDM0NDJjMCAyLjEzODQ5MyAxLjMwMjYyMyA0LjYyNDY3IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNmMxLjYwMjY3OSAwLjkyNjM2MyAyLjkwMjkyMS0wLjA1NzE1MyAyLjkwMjkyMS0yLjE5NTY0N3YtNjkuNzAzNDQxeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNDQwLjM0ODU3NyAzNTUuMzE2MDkzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA3LTcuODg0OC00LjU1MzIyOC0xNC4yODgzNzItMTguODgyMDg0LTE0LjI4ODM3Mi0zMS45NzczNzcgMC0xMy4wOTc2NzQgNi40MDM1NzItMjAuMDMyMjk4IDE0LjI4ODM3Mi0xNS40NzkwN3pNNDQwLjM0ODU3NyA0MjEuOTk1MTYzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA2OS03Ljg4NDgtNC41NTMyMjgtMTQuMjg4MzcyLTE4Ljg4MjA4NC0xNC4yODgzNzItMzEuOTc3Mzc2IDAtMTMuMDk3Njc0IDYuNDAzNTcyLTIwLjAzMjI5OCAxNC4yODgzNzItMTUuNDc5MDd6IiBmaWxsPSIjRURFRUYwIiAvPjwvc3ZnPg==',
-          width: 20,
-          height: 20,
+          src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhLS0gTGljZW5zZTogQ0MwLiBNYWRlIGJ5IFNWRyBSZXBvOiBodHRwczovL3d3dy5zdmdyZXBvLmNvbS9zdmcvODA3NTgvcmVwb3J0IC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0OTAgNDkwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0OTAgNDkwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGc+CgkJPGcgaWQ9IlhNTElEXzM2XyI+CgkJCTxnPgoJCQkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0FGQjZCQjsiIHBvaW50cz0iNDgwLDMzNSA0ODAsMzcwIDEwLDM3MCAxMCwzMzUgMjUsMzM1IDQ2NSwzMzUgCQkJCSIvPgoJCQkJPHJlY3QgeD0iMjAwIiB5PSIxMCIgc3R5bGU9ImZpbGw6I0FGQjZCQjsiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNSIvPgoJCQkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIHBvaW50cz0iNDY1LDQ1IDQ2NSwzMzUgMjUsMzM1IDI1LDQ1IDIwMCw0NSAyOTAsNDUgCQkJCSIvPgoJCQk8L2c+CgkJCTxwYXRoIHN0eWxlPSJmaWxsOiMyMzFGMjA7IiBkPSJNNDgwLDMyNWgtNVY0NWMwLTUuNTIzLTQuNDc3LTEwLTEwLTEwSDMwMFYxMGMwLTUuNTIzLTQuNDc3LTEwLTEwLTEwaC05MAoJCQkJYy01LjUyMywwLTEwLDQuNDc3LTEwLDEwdjI1SDI1Yy01LjUyMywwLTEwLDQuNDc3LTEwLDEwdjI4MGgtNWMtNS41MjMsMC0xMCw0LjQ3Ny0xMCwxMHYzNWMwLDUuNTIzLDQuNDc3LDEwLDEwLDEwaDE1Mi4zMzgKCQkJCWwtNTAuOTEzLDg0Ljg1NWwxNy4xNDksMTAuMjlMMTg1LjY2MiwzODBIMjM1djExMGgyMFYzODBoNDkuMzM4bDU3LjA4Nyw5NS4xNDVsMTcuMTQ5LTEwLjI5TDMyNy42NjIsMzgwSDQ4MAoJCQkJYzUuNTIzLDAsMTAtNC40NzcsMTAtMTB2LTM1QzQ5MCwzMjkuNDc3LDQ4NS41MjMsMzI1LDQ4MCwzMjV6IE0yMTAsMjBoNzB2MTVoLTcwVjIweiBNMzUsNTVoNDIwdjI3MEgzNVY1NXogTTQ3MCwzNjBIMjB2LTE1aDQ1MAoJCQkJVjM2MHoiLz4KCQk8L2c+Cgk8L2c+Cgk8ZyBpZD0iWE1MSURfMzVfIj4KCQk8Zz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0FGQjZCQjsiIGQ9Ik0yNjAsMTkwaC05MHYtOTBDMjE5LjcsMTAwLDI2MCwxNDAuMywyNjAsMTkweiIvPgoJCQk8cGF0aCBzdHlsZT0iZmlsbDojNDNCMDVDOyIgZD0iTTI2MCwxOTBjMCw0OS43LTQwLjMsOTAtOTAsOTBzLTkwLTQwLjMtOTAtOTBzNDAuMy05MCw5MC05MHY5MEgyNjB6Ii8+CgkJPC9nPgoJCTxwYXRoIHN0eWxlPSJmaWxsOiMyMzFGMjA7IiBkPSJNMTcwLDkwYy01NS4xNCwwLTEwMCw0NC44Ni0xMDAsMTAwczQ0Ljg2LDEwMCwxMDAsMTAwczEwMC00NC44NiwxMDAtMTAwUzIyNS4xNCw5MCwxNzAsOTB6CgkJCSBNMjQ5LjM1MywxODBIMTgwdi02OS4zNTNDMjE2LjEyOCwxMTUuMTc2LDI0NC44MjQsMTQzLjg3MiwyNDkuMzUzLDE4MHogTTE3MCwyNzBjLTQ0LjExMiwwLTgwLTM1Ljg4OC04MC04MAoJCQljMC00MC43MjQsMzAuNTkzLTc0LjQxMyw3MC03OS4zNTNWMTkwYzAsNS41MjMsNC40NzcsMTAsMTAsMTBoNzkuMzUzQzI0NC40MTMsMjM5LjQwNywyMTAuNzI0LDI3MCwxNzAsMjcweiIvPgoJPC9nPgoJPGc+CgkJPHJlY3QgeD0iMzQ1IiB5PSIxMzAiIHN0eWxlPSJmaWxsOiMyMzFGMjA7IiB3aWR0aD0iNzAiIGhlaWdodD0iMjAiLz4KCTwvZz4KCTxnPgoJCTxyZWN0IHg9IjM0NSIgeT0iMTYwIiBzdHlsZT0iZmlsbDojMjMxRjIwOyIgd2lkdGg9IjcwIiBoZWlnaHQ9IjIwIi8+Cgk8L2c+Cgk8Zz4KCQk8cmVjdCB4PSIzNDUiIHk9IjE5MCIgc3R5bGU9ImZpbGw6IzIzMUYyMDsiIHdpZHRoPSI3MCIgaGVpZ2h0PSIyMCIvPgoJPC9nPgoJPGc+CgkJPHJlY3QgeD0iMzQ1IiB5PSIxMDAiIHN0eWxlPSJmaWxsOiMyMzFGMjA7IiB3aWR0aD0iNDUiIGhlaWdodD0iMjAiLz4KCTwvZz4KCTxnPgoJCTxwYXRoIHN0eWxlPSJmaWxsOiMyMzFGMjA7IiBkPSJNMjcyLjA3MSwxMzIuMDcxbC0xNC4xNDMtMTQuMTQzbDE1LTE1YzEuODc1LTEuODc1LDQuNDE5LTIuOTI5LDcuMDcxLTIuOTI5aDQ1djIwaC00MC44NTgKCQkJTDI3Mi4wNzEsMTMyLjA3MXoiLz4KCTwvZz4KCTxnPgoJCTxyZWN0IHg9IjMxMCIgeT0iMjM1IiBzdHlsZT0iZmlsbDojMjMxRjIwOyIgd2lkdGg9IjExNSIgaGVpZ2h0PSIyMCIvPgoJPC9nPgoJPGc+CgkJPHJlY3QgeD0iMjgwIiB5PSIyNzAiIHN0eWxlPSJmaWxsOiMyMzFGMjA7IiB3aWR0aD0iMTQ1IiBoZWlnaHQ9IjIwIi8+Cgk8L2c+CjwvZz4KPC9zdmc+Cg==',
+          width: 35,
+          height: 35,
           centerX: am5.p50,
           centerY: am5.p50,
           cursorOverStyle: 'pointer'
@@ -135,7 +105,24 @@ function DataShareMap({ chartID }: { chartID: string }) {
         });
       });
 
-      citySeries.bullets.push(function () {
+      let serverSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+
+      // visible city circles
+      serverSeries.bullets.push(function () {
+        let image = am5.Picture.new(root, {
+          src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhLS0gTGljZW5zZTogQ0MwIExpY2Vuc2UuIE1hZGUgYnkgU1ZHIFJlcG86IGh0dHBzOi8vd3d3LnN2Z3JlcG8uY29tL3N2Zy80NzQzOTQvc2VydmVyIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgY2xhc3M9Imljb24iICB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUyOS4wMjQ1OTUgMzcwLjM1MjIyM2MwLTcuNDQ2NjIzLTQuNTM0MTc3LTE2LjExMDE0LTEwLjExODU0OC0xOS4zMzQ1NDlMMjA4LjU2NzM2NyAxNzEuODQzODdDMTk5LjI2MDg3NCAxNjYuNDY5MDYgMTkxLjcwMjMyNiAxNzIuMTg0NDA5IDE5MS43MDIzMjYgMTg0LjU5Mzg2djY0Mi4xNjIzMDdjMCA5LjkyODAzNyA2LjA0NjM2MyAyMS40ODAxODYgMTMuNDkyOTg2IDI1Ljc4MDk4NmwyNzYuNjAzODMyIDE1OS42OTYzNzNjMjYuMDY0MzcyIDE1LjA0ODAzNyA0Ny4yMjU0NTEtMC45NDc3OTUgNDcuMjI1NDUxLTM1LjcwMTg3OVYzNzAuMzUyMjIzeiIgZmlsbD0iIzRFNkZCQiIgLz48cGF0aCBkPSJNODMxLjU1MjI5OCAxOTAuNTQ0OTY3YzAtNC42MDgtMi44MDUyODQtNi43Mjk4MjMtNi4yNjA2ODktNC43MzQyMTRsLTMwMC41ODY4NjUgMTczLjU0NDE4N2MtMy40NTU0MDUgMS45OTU2MDktNi4yNjMwNyA3LjM1NjEzLTYuMjYzMDcgMTEuOTY0MTN2NjE3LjAxOTUzNWMwIDI1LjM0NTE5MSAxNS40MzM4MjMgMzcuMDExNjQ3IDM0LjQ0MjEyMSAyNi4wMzU3OTVsMjcyLjQwNzgxNC0xNTcuMjcyMTEyYzMuNDU1NDA1LTEuOTk1NjA5IDYuMjYwNjg4LTcuMzU4NTEyIDYuMjYwNjg5LTExLjk2NjUxMVYxOTAuNTQ0OTY3eiIgZmlsbD0iIzRENkZCQiIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA5LjA4MjY0MmMtMTkuMDEzMDYtMTAuOTc4MjMzLTQ3LjgyMDgtMTIuMTcxMzEyLTY0LjI4ODE0OS0yLjY2NDc4MkwyMDQuNTE0MjMzIDE2My4xMTM2NzRjLTE2LjQ2NDk2NyA5LjUwNjUzLTE0LjM5NzkxNiAyNi4xMzgxOTUgNC42MTc1MjUgMzcuMTE2NDI4bDI3NS42MTMxNzIgMTU5LjEyNDgzOGMxOS4wMTMwNiAxMC45NzgyMzMgNDcuODIwOCAxMi4xNzM2OTMgNjQuMjg4MTQ5IDIuNjY0NzgxbDI3MS40MDUyNDctMTU2LjY5NTgxNGMxNi40NjczNDktOS41MDY1MyAxNC4zOTc5MTYtMjYuMTM4MTk1LTQuNjE1MTQ1LTM3LjExNjQyOEw1NDAuMjA3NjI4IDkuMDgyNjQyeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA2NjMuNjYxNTQ0Yy0xOS4wMTMwNi0xMC45NzgyMzMtNDcuODIwOC0xMi4xNzM2OTMtNjQuMjg4MTQ5LTIuNjY0NzgxTDIwNC41MTQyMzMgODE3LjY5MjU3N2MtMTYuNDY0OTY3IDkuNTA2NTMtMTQuMzk3OTE2IDI2LjEzODE5NSA0LjYxNzUyNSAzNy4xMTY0MjhsMjc1LjYxMzE3MiAxNTkuMTI0ODM3YzE5LjAxMzA2IDEwLjk3ODIzMyA0Ny44MjA4IDEyLjE3MzY5MyA2NC4yODgxNDkgMi42NjQ3ODFsMjcxLjQwNTI0Ny0xNTYuNjk1ODE0YzE2LjQ2NzM0OS05LjUwNjUzIDE0LjM5NzkxNi0yNi4xMzgxOTUtNC42MTUxNDUtMzcuMTE2NDI4bC0yNzUuNjE1NTUzLTE1OS4xMjQ4Mzd6IiBmaWxsPSIjNEQ2RkJCIiAvPjxwYXRoIGQ9Ik01MTMuMjUyNjE0IDUzMy4yMzk2NjVMMTkzLjQwMDI2IDM0OC41NzE5ODF2MzYuNDI1ODI0bDMxOS44NTIzNTQgMTg0LjY2NTMwMnYtMzYuNDIzNDQyek04MTUuNzgwMzE2IDM1OC41NzM4NDJsLTMwMi41Mjc3MDIgMTc0LjY2NTgyM3YzNi40MjM0NDJsMzAyLjUyNzcwMi0xNzQuNjYzNDQydi0zNi40MjU4MjN6IiBmaWxsPSIjNDQ2N0FFIiAvPjxwYXRoIGQ9Ik00NTQuNjM2OTQ5IDY1OS4xMDU5MzVjMC0yLjEzODQ5My0xLjMwMDI0Mi00LjYyNDY3LTIuOTAyOTIxLTUuNTUxMDMzbC0yMTAuODk4NzU0LTEyMS43NjA3NDRjLTEuNjAyNjc5LTAuOTI2MzYzLTIuOTA1MzAyIDAuMDU3MTUzLTIuOTA1MzAyIDIuMTk1NjQ3djY5LjcwMzQ0MmMwIDIuMTM2MTEyIDEuMzAyNjIzIDQuNjIyMjg4IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNWMxLjYwMjY3OSAwLjkyMzk4MSAyLjkwMjkyMS0wLjA1OTUzNSAyLjkwMjkyMS0yLjE5NTY0NnYtNjkuNzAzNDQyek00NTQuNjM2OTQ5IDgwOS4yNzY3MjZjMC0yLjEzNjExMi0xLjMwMDI0Mi00LjYyMjI4OC0yLjkwMjkyMS01LjU0ODY1MmwtMjEwLjg5ODc1NC0xMjEuNzYzMTI1Yy0xLjYwMjY3OS0wLjkyMzk4MS0yLjkwNTMwMiAwLjA1OTUzNS0yLjkwNTMwMiAyLjE5NTY0NnY2OS43MDM0NDJjMCAyLjEzODQ5MyAxLjMwMjYyMyA0LjYyNDY3IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNmMxLjYwMjY3OSAwLjkyNjM2MyAyLjkwMjkyMS0wLjA1NzE1MyAyLjkwMjkyMS0yLjE5NTY0N3YtNjkuNzAzNDQxeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNDQwLjM0ODU3NyAzNTUuMzE2MDkzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA3LTcuODg0OC00LjU1MzIyOC0xNC4yODgzNzItMTguODgyMDg0LTE0LjI4ODM3Mi0zMS45NzczNzcgMC0xMy4wOTc2NzQgNi40MDM1NzItMjAuMDMyMjk4IDE0LjI4ODM3Mi0xNS40NzkwN3pNNDQwLjM0ODU3NyA0MjEuOTk1MTYzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA2OS03Ljg4NDgtNC41NTMyMjgtMTQuMjg4MzcyLTE4Ljg4MjA4NC0xNC4yODgzNzItMzEuOTc3Mzc2IDAtMTMuMDk3Njc0IDYuNDAzNTcyLTIwLjAzMjI5OCAxNC4yODgzNzItMTUuNDc5MDd6IiBmaWxsPSIjRURFRUYwIiAvPjwvc3ZnPg==',
+          width: 50,
+          height: 50,
+          centerX: am5.p50,
+          centerY: am5.p50,
+          cursorOverStyle: 'pointer'
+        });
+        return am5.Bullet.new(root, {
+          sprite: image
+        });
+      });
+
+      serverSeries.bullets.push(function () {
         let label = am5.Label.new(root, {
           text: '[#FFF]{title}',
           populateText: true
@@ -170,66 +157,66 @@ function DataShareMap({ chartID }: { chartID: string }) {
       );
 
       animatedBulletSeries.bullets.push(function () {
-        let container = am5.Container.new(root, {});
-        container.children.push(pulseCircle);
-        container.children.push(secureDataIcon);
-        return am5.Bullet.new(root, { sprite: container });
+        let circle = am5.Circle.new(root, {
+          radius: 0
+        });
+
+        return am5.Bullet.new(root, {
+          sprite: circle
+        });
       });
 
       let cities = [
         {
           title: 'LoanConnect',
           id: 'loanConnect',
-          geometry: { type: 'Point', coordinates: [79.1025, 22.74] }
+          geometry: { type: 'Point', coordinates: [24.044, -28.58] }
         },
         {
           title: 'Credit Bureaus',
           id: 'credit',
-          geometry: { type: 'Point', coordinates: [17.996632, -33.9126408] }
+          geometry: { type: 'Point', coordinates: [18.4, -33.9] }
         },
         {
           title: 'Tax Authorities',
           id: 'tax',
-          geometry: { type: 'Point', coordinates: [17.996632, -33.9126408] }
+          geometry: { type: 'Point', coordinates: [31.0, -29.8] }
         },
         {
           title: 'SME Mock Bank',
           id: 'bank',
-          geometry: { type: 'Point', coordinates: [17.996632, -33.9126408] }
+          geometry: { type: 'Point', coordinates: [29.5, -23.5] }
+        },
+        {
+          title: 'Banks',
+          id: 'banks',
+          geometry: { type: 'Point', coordinates: [20.5, -28.5] }
         }
       ];
 
+      let servers = [
+        {
+          title: 'LoanConnect',
+          id: 'loanConnect',
+          geometry: { type: 'Point', coordinates: [24.044, -28.58] }
+        },
+      ];
+
       citySeries.data.setAll(cities);
-      animatedBulletSeries.setAll(cities);
+      serverSeries.data.setAll(servers);
 
-      let destinations = ['bank'];
+      let destinations = ['bank', 'tax', 'credit', 'banks'];
 
-      // London coordinates
-      let originLongitude = 79.1025;
-      let originLatitude = 22.74;
+      // LoanConnect coordinates (Cape Town area)
+      let originLongitude = 18.4;
+      let originLatitude = -33.9;
 
       let londonDataItem = citySeries.getDataItemById('loanConnect');
-
-      setTimeout(() => {
-        londonDataItem.set("title", "Loan testing")
-      }, 3000)
-      let londonDataItem1 = animatedBulletSeries.getDataItemById('loanConnect');
 
       am5.array.each(destinations, function (did) {
         let destinationDataItem = citySeries.getDataItemById(did);
         let lineDataItem = lineSeries.pushDataItem({});
-        lineDataItem.set('pointsToConnect', [
-          destinationDataItem,
-          londonDataItem
-        ]);
-
-        // let dataTransferSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
-        // dataTransferSeries.bullets.push(function () {
-        //     let container = am5.Container.new(root, {});
-        //     container.children.push(pulseCircle);
-        //     container.children.push(secureDataIcon);
-        //     return am5.Bullet.new(root, { sprite: container });
-        // });
+        lineDataItem.set("pointsToConnect", [londonDataItem, destinationDataItem])
 
         let startDataItem = animatedBulletSeries.pushDataItem({});
         startDataItem.setAll({
@@ -243,102 +230,21 @@ function DataShareMap({ chartID }: { chartID: string }) {
           positionOnLine: 1
         });
 
-        // let dataTransferItem = dataTransferSeries.pushDataItem({
-        //     lineDataItem: lineDataItem,
-        //     positionOnLine: 0,
-        //     autoRotate: false
-        // });
-        // dataTransferItem.dataContext = {} as any;
+        let animatedLineDataItem = animatedLineSeries.pushDataItem({});
+        animatedLineDataItem.set("pointsToConnect", [startDataItem, endDataItem])
 
-        // dataTransferItem.animate({
-        //     key: "positionOnLine",
-        //     from: 0,
-        //     to: 1,
-        //     duration: 8000,
-        //     easing: am5.ease.linear
-        // });
+        let lon0 = londonDataItem.get("longitude");
+        let lat0 = londonDataItem.get("latitude");
 
-        let lon0 = londonDataItem.get('longitude');
-        let lat0 = londonDataItem.get('latitude');
+        let lon1 = destinationDataItem.get("longitude");
+        let lat1 = destinationDataItem.get("latitude");
 
-        let lon1 = destinationDataItem.get('longitude');
-        let lat1 = destinationDataItem.get('latitude');
 
         let distance = Math.hypot(lon1 - lon0, lat1 - lat0);
         let duration = distance * 100;
 
-        animateEnd(endDataItem, startDataItem, duration);
-
-        let animatedLineDataItem = animatedLineSeries.pushDataItem({});
-        animatedLineDataItem.set('pointsToConnect', [
-          startDataItem,
-          endDataItem
-        ]);
-        
+        animateEnd(startDataItem, endDataItem, duration);
       });
-
-      // let dataTransferSeriesNew = chart.series.push(am5map.MapPointSeries.new(root, {}));
-
-      // dataTransferSeries.bullets.push(function () {
-      //     let container = am5.Container.new(root, {});
-      //     container.children.push(pulseCircle);
-      //     container.children.push(secureDataIcon);
-      //     return am5.Bullet.new(root, { sprite: container });
-      // });
-
-      // dataTransferSeriesNew.bullets.push(function () {
-      //     let container = am5.Container.new(root, {});
-      //     container.children.push(pulseCircle);
-      //     container.children.push(secureDataIcon);
-      //     return am5.Bullet.new(root, { sprite: container });
-      // });
-
-      // let dataTransferItem1 = dataTransferSeries.pushDataItem({
-      //     lineDataItem: lineDataItem2,
-      //     positionOnLine: 0,
-      //     autoRotate: false
-      // });
-      // dataTransferItem1.dataContext = {} as any;
-
-      // let dataTransferItem2 = dataTransferSeriesNew.pushDataItem({
-      //     lineDataItem: lineDataItem1,
-      //     positionOnLine: 0,
-      //     autoRotate: false
-      // });
-      // dataTransferItem2.dataContext = {} as any;
-
-      // dataTransferItem2.animate({
-      //     key: "positionOnLine",
-      //     from: 0,
-      //     to: 1,
-      //     duration: 8000,
-      //     easing: am5.ease.linear
-      // });
-
-      // // Animate the data transfer
-      // let startAnimation1 = dataTransferItem1.animate({
-      //     key: "positionOnLine",
-      //     from: 0,
-      //     to: 1,
-      //     duration: 8000,
-      //     easing: am5.ease.linear
-      // });
-
-      // dataTransferItem2.animate({
-      //     key: "positionOnLine",
-      //     from: 0,
-      //     to: 1,
-      //     duration: 8000,
-      //     easing: am5.ease.linear
-      // });
-
-      // dataTransferItem3.animate({
-      //     key: "positionOnLine",
-      //     from: 0,
-      //     to: 1,
-      //     duration: 8000,
-      //     easing: am5.ease.linear
-      // });
 
       // Add pulsing animation for the security indicator
       pulseCircle.animate({
@@ -439,38 +345,14 @@ function DataShareMap({ chartID }: { chartID: string }) {
   }
 
   const zoomToPoints = (polygonSeries: any, chart: any) => {
-    const points = [
-      { latitude: -30.567, longitude: 22.9375 },
-      { latitude: 22.2105, longitude: 79.1025 }
-    ];
-
-    const latitudes = points.map((p) => p.latitude);
-    const longitudes = points.map((p) => p.longitude);
-
-    const minLat = Math.min(...latitudes);
-    const maxLat = Math.max(...latitudes);
-    const minLng = Math.min(...longitudes);
-    const maxLng = Math.max(...longitudes);
-
-    // Add some padding around the points
-    const latPadding = (maxLat - minLat) * 0.2;
-    const lngPadding = (maxLng - minLng) * 0.2;
-
-    const bounds = {
-      north: maxLat + latPadding,
-      south: minLat - latPadding,
-      east: maxLng + lngPadding,
-      west: minLng - lngPadding
-    };
-
     polygonSeries.events.on('datavalidated', function () {
-      chart.zoomToGeoPoint(
-        {
-          longitude: (bounds.east + bounds.west) / 2,
-          latitude: (bounds.north + bounds.south) / 2
-        },
-        4
+
+      const dataItem = polygonSeries.dataItems.find(
+        (item: any) => item.dataContext?.id === "ZA"
       );
+      if (dataItem) {
+        polygonSeries.zoomToDataItem(dataItem);
+      }
     });
   };
 
