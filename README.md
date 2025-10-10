@@ -12,6 +12,8 @@ Read the detailed problem statement [here](https://app.apixplatform.com/h1/g20so
 
 **Privacy-Preserving SME Rating Engine**
 
+Vist the deployed platform [here](https://sl-compute-app.silencelaboratories.com/)
+
 <img width="1170" height="658" alt="Screenshot 2025-10-11 at 12 29 47 AM" src="https://github.com/user-attachments/assets/d52fcfb2-5fca-4520-b649-2ea9e2862513" />
 
 <hr />
@@ -23,8 +25,6 @@ This model reduces the trust gap between institutions & unlocks access to previo
 By using cryptography as the trust layer, the system creates interoperability across open banking ecosystems and can support a wide range of collaborative use cases. Whether for cross-border SME lending, credit history portability, or broader open finance applications, it enables institutions to work together without exposing raw data, overcoming regulatory and operational barriers while improving efficiency, accuracy, and trust.
 
 ### Platform Overview
-
-Vist the deployed platform [here](https://sl-compute-app.silencelaboratories.com/)
 
 ### SME Portal
 
