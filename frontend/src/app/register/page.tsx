@@ -356,7 +356,7 @@ export default function Register() {
                         </Button>
                       </div>
 
-                      <div className='flex'>
+                      <div className='flex space-x-4'>
                         <form
                           onSubmit={handleSubmit}
                           className='w-full space-y-6'

@@ -36,7 +36,7 @@ export default async function SMEApplicationListingPage({
     try {
       const cookieStore = await cookies();
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}/api/v1/sme/${bank_id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}/api/v1/bank/${bank_id}`,
         {
           withCredentials: true,
           headers: {

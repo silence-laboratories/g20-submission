@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from ...api.dependencies import check_session
 
-from ...core.config import settings
+from ...core.config import EnvironmentOption, settings
 from ...core.db.database import async_get_db
 from ...core.exceptions.http_exceptions import UnauthorizedException
 from ...core.google_oauth import google_oauth_service
@@ -17,6 +17,7 @@ from ...core.security import (
     verify_token,
 )
 from ...crud import user
+from src.app.core import config
 
 router = APIRouter(tags=["google-auth"])
 
@@ -76,13 +77,21 @@ async def logout(
         raise HTTPException(status_code=401, detail="User not found")
 
     # Clear sl_session cookie while sending response
-    response.delete_cookie(
-        key="sl_session", 
-        httponly=True, 
-        secure=True, 
-        samesite="none",  # Changed to "none" for cross-origin
-        domain=".silencelaboratories.com"  # Set to your root domain with leading dot
-    )
+    if settings.ENVIRONMENT == EnvironmentOption.LOCAL:
+        response.delete_cookie(
+            key="sl_session",
+            httponly=True,
+            secure=True,
+            samesite="lax",  # Changed to "none" for cross-origin
+        )
+    else:
+        response.delete_cookie(
+            key="sl_session", 
+            httponly=True, 
+            secure=True, 
+            samesite="none",  # Changed to "none" for cross-origin
+            domain=".silencelaboratories.com"  # Set to your root domain with leading dot
+        )
     return {"message": "Logged out successfully"}
 
 
@@ -105,23 +114,42 @@ async def google_callback(
         # Mock login for bank user
         if code == "MOCK_LOGIN_CODE":
             existing_user = await user.get_by_google_id(db, google_id=code)
+            
+            print(existing_user)
 
             # Create JWT tokens
             access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            
+            print(access_token_expires)
             access_token = await create_access_token(
                 data={"sub": existing_user.email}, expires_delta=access_token_expires
             )
+            
+            print(access_token)
             max_age = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
-
-            response.set_cookie(
-                key="sl_session",
-                value=access_token,
-                httponly=True,
-                secure=True,
-                samesite="none",  # Changed to "none" for cross-origin
-                max_age=max_age,
-                domain=".silencelaboratories.com"  # Set to your root domain with leading dot
-            )
+            
+            print(max_age)
+            
+            if settings.ENVIRONMENT == EnvironmentOption.LOCAL:
+                response.set_cookie(
+                    key="sl_session",
+                    value=access_token,
+                    httponly=True,
+                    secure=True,
+                    samesite="lax",  # Changed to "none" for cross-origin
+                    max_age=max_age,
+                )
+                
+            else:
+                response.set_cookie(
+                    key="sl_session",
+                    value=access_token,
+                    httponly=True,
+                    secure=True,
+                    samesite="none",  # Changed to "none" for cross-origin
+                    max_age=max_age,
+                    domain=".silencelaboratories.com"  # Set to your root domain with leading dot
+                )
             
             return {
                     "id": existing_user.id,
@@ -150,16 +178,26 @@ async def google_callback(
             data={"sub": user_info["email"]}, expires_delta=access_token_expires
         )
         max_age = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
-
-        response.set_cookie(
-            key="sl_session",
-            value=access_token,
-            httponly=True,
-            secure=True,
-            samesite="none",  # Changed to "none" for cross-origin
-            max_age=max_age,
-            domain=".silencelaboratories.com"  # Set to your root domain with leading dot
-        )
+        
+        if settings.ENVIRONMENT == EnvironmentOption.LOCAL:
+            response.set_cookie(
+                key="sl_session",
+                value=access_token,
+                httponly=True,
+                secure=True,
+                samesite="lax",  # Changed to "none" for cross-origin
+                max_age=max_age,
+            )
+        else:
+            response.set_cookie(
+                key="sl_session",
+                value=access_token,
+                httponly=True,
+                secure=True,
+                samesite="none",  # Changed to "none" for cross-origin
+                max_age=max_age,
+                domain=".silencelaboratories.com"  # Set to your root domain with leading dot
+            )
 
         if not existing_user:
             # Create new user

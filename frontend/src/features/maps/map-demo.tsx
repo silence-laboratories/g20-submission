@@ -14,7 +14,7 @@ export default function MapDemo({
 }: MapCountrySearchProps) {
   return (
     <div className='w-full'>
-      {title && <h6 className='mb-4'>{title}</h6>}
+      {title && <h6 className='mb-4 text-sm'>{title}</h6>}
       <NewMap chartID='map-demo' getSelectedCountry={getSelectedCountry} />
     </div>
   );

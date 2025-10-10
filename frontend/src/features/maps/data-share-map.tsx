@@ -85,8 +85,8 @@ function DataShareMap({ chartID }: { chartID: string }) {
       pointSeries.bullets.push(function () {
         let image = am5.Picture.new(root, {
           src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhLS0gTGljZW5zZTogQ0MwIExpY2Vuc2UuIE1hZGUgYnkgU1ZHIFJlcG86IGh0dHBzOi8vd3d3LnN2Z3JlcG8uY29tL3N2Zy80NzQzOTQvc2VydmVyIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgY2xhc3M9Imljb24iICB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUyOS4wMjQ1OTUgMzcwLjM1MjIyM2MwLTcuNDQ2NjIzLTQuNTM0MTc3LTE2LjExMDE0LTEwLjExODU0OC0xOS4zMzQ1NDlMMjA4LjU2NzM2NyAxNzEuODQzODdDMTk5LjI2MDg3NCAxNjYuNDY5MDYgMTkxLjcwMjMyNiAxNzIuMTg0NDA5IDE5MS43MDIzMjYgMTg0LjU5Mzg2djY0Mi4xNjIzMDdjMCA5LjkyODAzNyA2LjA0NjM2MyAyMS40ODAxODYgMTMuNDkyOTg2IDI1Ljc4MDk4NmwyNzYuNjAzODMyIDE1OS42OTYzNzNjMjYuMDY0MzcyIDE1LjA0ODAzNyA0Ny4yMjU0NTEtMC45NDc3OTUgNDcuMjI1NDUxLTM1LjcwMTg3OVYzNzAuMzUyMjIzeiIgZmlsbD0iIzRFNkZCQiIgLz48cGF0aCBkPSJNODMxLjU1MjI5OCAxOTAuNTQ0OTY3YzAtNC42MDgtMi44MDUyODQtNi43Mjk4MjMtNi4yNjA2ODktNC43MzQyMTRsLTMwMC41ODY4NjUgMTczLjU0NDE4N2MtMy40NTU0MDUgMS45OTU2MDktNi4yNjMwNyA3LjM1NjEzLTYuMjYzMDcgMTEuOTY0MTN2NjE3LjAxOTUzNWMwIDI1LjM0NTE5MSAxNS40MzM4MjMgMzcuMDExNjQ3IDM0LjQ0MjEyMSAyNi4wMzU3OTVsMjcyLjQwNzgxNC0xNTcuMjcyMTEyYzMuNDU1NDA1LTEuOTk1NjA5IDYuMjYwNjg4LTcuMzU4NTEyIDYuMjYwNjg5LTExLjk2NjUxMVYxOTAuNTQ0OTY3eiIgZmlsbD0iIzRENkZCQiIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA5LjA4MjY0MmMtMTkuMDEzMDYtMTAuOTc4MjMzLTQ3LjgyMDgtMTIuMTcxMzEyLTY0LjI4ODE0OS0yLjY2NDc4MkwyMDQuNTE0MjMzIDE2My4xMTM2NzRjLTE2LjQ2NDk2NyA5LjUwNjUzLTE0LjM5NzkxNiAyNi4xMzgxOTUgNC42MTc1MjUgMzcuMTE2NDI4bDI3NS42MTMxNzIgMTU5LjEyNDgzOGMxOS4wMTMwNiAxMC45NzgyMzMgNDcuODIwOCAxMi4xNzM2OTMgNjQuMjg4MTQ5IDIuNjY0NzgxbDI3MS40MDUyNDctMTU2LjY5NTgxNGMxNi40NjczNDktOS41MDY1MyAxNC4zOTc5MTYtMjYuMTM4MTk1LTQuNjE1MTQ1LTM3LjExNjQyOEw1NDAuMjA3NjI4IDkuMDgyNjQyeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA2NjMuNjYxNTQ0Yy0xOS4wMTMwNi0xMC45NzgyMzMtNDcuODIwOC0xMi4xNzM2OTMtNjQuMjg4MTQ5LTIuNjY0NzgxTDIwNC41MTQyMzMgODE3LjY5MjU3N2MtMTYuNDY0OTY3IDkuNTA2NTMtMTQuMzk3OTE2IDI2LjEzODE5NSA0LjYxNzUyNSAzNy4xMTY0MjhsMjc1LjYxMzE3MiAxNTkuMTI0ODM3YzE5LjAxMzA2IDEwLjk3ODIzMyA0Ny44MjA4IDEyLjE3MzY5MyA2NC4yODgxNDkgMi42NjQ3ODFsMjcxLjQwNTI0Ny0xNTYuNjk1ODE0YzE2LjQ2NzM0OS05LjUwNjUzIDE0LjM5NzkxNi0yNi4xMzgxOTUtNC42MTUxNDUtMzcuMTE2NDI4bC0yNzUuNjE1NTUzLTE1OS4xMjQ4Mzd6IiBmaWxsPSIjNEQ2RkJCIiAvPjxwYXRoIGQ9Ik01MTMuMjUyNjE0IDUzMy4yMzk2NjVMMTkzLjQwMDI2IDM0OC41NzE5ODF2MzYuNDI1ODI0bDMxOS44NTIzNTQgMTg0LjY2NTMwMnYtMzYuNDIzNDQyek04MTUuNzgwMzE2IDM1OC41NzM4NDJsLTMwMi41Mjc3MDIgMTc0LjY2NTgyM3YzNi40MjM0NDJsMzAyLjUyNzcwMi0xNzQuNjYzNDQydi0zNi40MjU4MjN6IiBmaWxsPSIjNDQ2N0FFIiAvPjxwYXRoIGQ9Ik00NTQuNjM2OTQ5IDY1OS4xMDU5MzVjMC0yLjEzODQ5My0xLjMwMDI0Mi00LjYyNDY3LTIuOTAyOTIxLTUuNTUxMDMzbC0yMTAuODk4NzU0LTEyMS43NjA3NDRjLTEuNjAyNjc5LTAuOTI2MzYzLTIuOTA1MzAyIDAuMDU3MTUzLTIuOTA1MzAyIDIuMTk1NjQ3djY5LjcwMzQ0MmMwIDIuMTM2MTEyIDEuMzAyNjIzIDQuNjIyMjg4IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNWMxLjYwMjY3OSAwLjkyMzk4MSAyLjkwMjkyMS0wLjA1OTUzNSAyLjkwMjkyMS0yLjE5NTY0NnYtNjkuNzAzNDQyek00NTQuNjM2OTQ5IDgwOS4yNzY3MjZjMC0yLjEzNjExMi0xLjMwMDI0Mi00LjYyMjI4OC0yLjkwMjkyMS01LjU0ODY1MmwtMjEwLjg5ODc1NC0xMjEuNzYzMTI1Yy0xLjYwMjY3OS0wLjkyMzk4MS0yLjkwNTMwMiAwLjA1OTUzNS0yLjkwNTMwMiAyLjE5NTY0NnY2OS43MDM0NDJjMCAyLjEzODQ5MyAxLjMwMjYyMyA0LjYyNDY3IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNmMxLjYwMjY3OSAwLjkyNjM2MyAyLjkwMjkyMS0wLjA1NzE1MyAyLjkwMjkyMS0yLjE5NTY0N3YtNjkuNzAzNDQxeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNDQwLjM0ODU3NyAzNTUuMzE2MDkzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA3LTcuODg0OC00LjU1MzIyOC0xNC4yODgzNzItMTguODgyMDg0LTE0LjI4ODM3Mi0zMS45NzczNzcgMC0xMy4wOTc2NzQgNi40MDM1NzItMjAuMDMyMjk4IDE0LjI4ODM3Mi0xNS40NzkwN3pNNDQwLjM0ODU3NyA0MjEuOTk1MTYzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA2OS03Ljg4NDgtNC41NTMyMjgtMTQuMjg4MzcyLTE4Ljg4MjA4NC0xNC4yODgzNzItMzEuOTc3Mzc2IDAtMTMuMDk3Njc0IDYuNDAzNTcyLTIwLjAzMjI5OCAxNC4yODgzNzItMTUuNDc5MDd6IiBmaWxsPSIjRURFRUYwIiAvPjwvc3ZnPg==',
-          width: 50,
-          height: 50,
+          width: 20,
+          height: 20,
           centerX: am5.p50,
           centerY: am5.p50,
           tooltipText: '{title}',
@@ -124,8 +124,8 @@ function DataShareMap({ chartID }: { chartID: string }) {
       citySeries.bullets.push(function () {
         let image = am5.Picture.new(root, {
           src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCjwhLS0gTGljZW5zZTogQ0MwIExpY2Vuc2UuIE1hZGUgYnkgU1ZHIFJlcG86IGh0dHBzOi8vd3d3LnN2Z3JlcG8uY29tL3N2Zy80NzQzOTQvc2VydmVyIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgY2xhc3M9Imljb24iICB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUyOS4wMjQ1OTUgMzcwLjM1MjIyM2MwLTcuNDQ2NjIzLTQuNTM0MTc3LTE2LjExMDE0LTEwLjExODU0OC0xOS4zMzQ1NDlMMjA4LjU2NzM2NyAxNzEuODQzODdDMTk5LjI2MDg3NCAxNjYuNDY5MDYgMTkxLjcwMjMyNiAxNzIuMTg0NDA5IDE5MS43MDIzMjYgMTg0LjU5Mzg2djY0Mi4xNjIzMDdjMCA5LjkyODAzNyA2LjA0NjM2MyAyMS40ODAxODYgMTMuNDkyOTg2IDI1Ljc4MDk4NmwyNzYuNjAzODMyIDE1OS42OTYzNzNjMjYuMDY0MzcyIDE1LjA0ODAzNyA0Ny4yMjU0NTEtMC45NDc3OTUgNDcuMjI1NDUxLTM1LjcwMTg3OVYzNzAuMzUyMjIzeiIgZmlsbD0iIzRFNkZCQiIgLz48cGF0aCBkPSJNODMxLjU1MjI5OCAxOTAuNTQ0OTY3YzAtNC42MDgtMi44MDUyODQtNi43Mjk4MjMtNi4yNjA2ODktNC43MzQyMTRsLTMwMC41ODY4NjUgMTczLjU0NDE4N2MtMy40NTU0MDUgMS45OTU2MDktNi4yNjMwNyA3LjM1NjEzLTYuMjYzMDcgMTEuOTY0MTN2NjE3LjAxOTUzNWMwIDI1LjM0NTE5MSAxNS40MzM4MjMgMzcuMDExNjQ3IDM0LjQ0MjEyMSAyNi4wMzU3OTVsMjcyLjQwNzgxNC0xNTcuMjcyMTEyYzMuNDU1NDA1LTEuOTk1NjA5IDYuMjYwNjg4LTcuMzU4NTEyIDYuMjYwNjg5LTExLjk2NjUxMVYxOTAuNTQ0OTY3eiIgZmlsbD0iIzRENkZCQiIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA5LjA4MjY0MmMtMTkuMDEzMDYtMTAuOTc4MjMzLTQ3LjgyMDgtMTIuMTcxMzEyLTY0LjI4ODE0OS0yLjY2NDc4MkwyMDQuNTE0MjMzIDE2My4xMTM2NzRjLTE2LjQ2NDk2NyA5LjUwNjUzLTE0LjM5NzkxNiAyNi4xMzgxOTUgNC42MTc1MjUgMzcuMTE2NDI4bDI3NS42MTMxNzIgMTU5LjEyNDgzOGMxOS4wMTMwNiAxMC45NzgyMzMgNDcuODIwOCAxMi4xNzM2OTMgNjQuMjg4MTQ5IDIuNjY0NzgxbDI3MS40MDUyNDctMTU2LjY5NTgxNGMxNi40NjczNDktOS41MDY1MyAxNC4zOTc5MTYtMjYuMTM4MTk1LTQuNjE1MTQ1LTM3LjExNjQyOEw1NDAuMjA3NjI4IDkuMDgyNjQyeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNTQwLjIwNzYyOCA2NjMuNjYxNTQ0Yy0xOS4wMTMwNi0xMC45NzgyMzMtNDcuODIwOC0xMi4xNzM2OTMtNjQuMjg4MTQ5LTIuNjY0NzgxTDIwNC41MTQyMzMgODE3LjY5MjU3N2MtMTYuNDY0OTY3IDkuNTA2NTMtMTQuMzk3OTE2IDI2LjEzODE5NSA0LjYxNzUyNSAzNy4xMTY0MjhsMjc1LjYxMzE3MiAxNTkuMTI0ODM3YzE5LjAxMzA2IDEwLjk3ODIzMyA0Ny44MjA4IDEyLjE3MzY5MyA2NC4yODgxNDkgMi42NjQ3ODFsMjcxLjQwNTI0Ny0xNTYuNjk1ODE0YzE2LjQ2NzM0OS05LjUwNjUzIDE0LjM5NzkxNi0yNi4xMzgxOTUtNC42MTUxNDUtMzcuMTE2NDI4bC0yNzUuNjE1NTUzLTE1OS4xMjQ4Mzd6IiBmaWxsPSIjNEQ2RkJCIiAvPjxwYXRoIGQ9Ik01MTMuMjUyNjE0IDUzMy4yMzk2NjVMMTkzLjQwMDI2IDM0OC41NzE5ODF2MzYuNDI1ODI0bDMxOS44NTIzNTQgMTg0LjY2NTMwMnYtMzYuNDIzNDQyek04MTUuNzgwMzE2IDM1OC41NzM4NDJsLTMwMi41Mjc3MDIgMTc0LjY2NTgyM3YzNi40MjM0NDJsMzAyLjUyNzcwMi0xNzQuNjYzNDQydi0zNi40MjU4MjN6IiBmaWxsPSIjNDQ2N0FFIiAvPjxwYXRoIGQ9Ik00NTQuNjM2OTQ5IDY1OS4xMDU5MzVjMC0yLjEzODQ5My0xLjMwMDI0Mi00LjYyNDY3LTIuOTAyOTIxLTUuNTUxMDMzbC0yMTAuODk4NzU0LTEyMS43NjA3NDRjLTEuNjAyNjc5LTAuOTI2MzYzLTIuOTA1MzAyIDAuMDU3MTUzLTIuOTA1MzAyIDIuMTk1NjQ3djY5LjcwMzQ0MmMwIDIuMTM2MTEyIDEuMzAyNjIzIDQuNjIyMjg4IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNWMxLjYwMjY3OSAwLjkyMzk4MSAyLjkwMjkyMS0wLjA1OTUzNSAyLjkwMjkyMS0yLjE5NTY0NnYtNjkuNzAzNDQyek00NTQuNjM2OTQ5IDgwOS4yNzY3MjZjMC0yLjEzNjExMi0xLjMwMDI0Mi00LjYyMjI4OC0yLjkwMjkyMS01LjU0ODY1MmwtMjEwLjg5ODc1NC0xMjEuNzYzMTI1Yy0xLjYwMjY3OS0wLjkyMzk4MS0yLjkwNTMwMiAwLjA1OTUzNS0yLjkwNTMwMiAyLjE5NTY0NnY2OS43MDM0NDJjMCAyLjEzODQ5MyAxLjMwMjYyMyA0LjYyNDY3IDIuOTA1MzAyIDUuNTQ4NjUxbDIxMC44OTg3NTQgMTIxLjc2MzEyNmMxLjYwMjY3OSAwLjkyNjM2MyAyLjkwMjkyMS0wLjA1NzE1MyAyLjkwMjkyMS0yLjE5NTY0N3YtNjkuNzAzNDQxeiIgZmlsbD0iIzZEOEFDQSIgLz48cGF0aCBkPSJNNDQwLjM0ODU3NyAzNTUuMzE2MDkzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA3LTcuODg0OC00LjU1MzIyOC0xNC4yODgzNzItMTguODgyMDg0LTE0LjI4ODM3Mi0zMS45NzczNzcgMC0xMy4wOTc2NzQgNi40MDM1NzItMjAuMDMyMjk4IDE0LjI4ODM3Mi0xNS40NzkwN3pNNDQwLjM0ODU3NyA0MjEuOTk1MTYzYzcuODg3MTgxIDQuNTUwODQ3IDE0LjI4ODM3MiAxOC44Nzk3MDIgMTQuMjg4MzcyIDMxLjk3NzM3NyAwIDEzLjA5NTI5My02LjQwMTE5MSAyMC4wMzIyOTgtMTQuMjg4MzcyIDE1LjQ3OTA2OS03Ljg4NDgtNC41NTMyMjgtMTQuMjg4MzcyLTE4Ljg4MjA4NC0xNC4yODgzNzItMzEuOTc3Mzc2IDAtMTMuMDk3Njc0IDYuNDAzNTcyLTIwLjAzMjI5OCAxNC4yODgzNzItMTUuNDc5MDd6IiBmaWxsPSIjRURFRUYwIiAvPjwvc3ZnPg==',
-          width: 50,
-          height: 50,
+          width: 20,
+          height: 20,
           centerX: am5.p50,
           centerY: am5.p50,
           cursorOverStyle: 'pointer'
@@ -185,30 +185,34 @@ function DataShareMap({ chartID }: { chartID: string }) {
         {
           title: 'Credit Bureaus',
           id: 'credit',
-          geometry: { type: 'Point', coordinates: [31.8206, 25.2504] }
+          geometry: { type: 'Point', coordinates: [17.996632, -33.9126408] }
         },
         {
           title: 'Tax Authorities',
           id: 'tax',
-          geometry: { type: 'Point', coordinates: [36.8777, 1.076] }
+          geometry: { type: 'Point', coordinates: [17.996632, -33.9126408] }
         },
         {
           title: 'SME Mock Bank',
           id: 'bank',
-          geometry: { type: 'Point', coordinates: [22.9375, -30.567] }
+          geometry: { type: 'Point', coordinates: [17.996632, -33.9126408] }
         }
       ];
 
       citySeries.data.setAll(cities);
       animatedBulletSeries.setAll(cities);
 
-      let destinations = ['credit', 'tax', 'bank'];
+      let destinations = ['bank'];
 
       // London coordinates
       let originLongitude = 79.1025;
       let originLatitude = 22.74;
 
       let londonDataItem = citySeries.getDataItemById('loanConnect');
+
+      setTimeout(() => {
+        londonDataItem.set("title", "Loan testing")
+      }, 3000)
       let londonDataItem1 = animatedBulletSeries.getDataItemById('loanConnect');
 
       am5.array.each(destinations, function (did) {
@@ -254,12 +258,6 @@ function DataShareMap({ chartID }: { chartID: string }) {
         //     easing: am5.ease.linear
         // });
 
-        let animatedLineDataItem = animatedLineSeries.pushDataItem({});
-        animatedLineDataItem.set('pointsToConnect', [
-          startDataItem,
-          endDataItem
-        ]);
-
         let lon0 = londonDataItem.get('longitude');
         let lat0 = londonDataItem.get('latitude');
 
@@ -269,7 +267,14 @@ function DataShareMap({ chartID }: { chartID: string }) {
         let distance = Math.hypot(lon1 - lon0, lat1 - lat0);
         let duration = distance * 100;
 
-        animateEnd(startDataItem, endDataItem, duration);
+        animateEnd(endDataItem, startDataItem, duration);
+
+        let animatedLineDataItem = animatedLineSeries.pushDataItem({});
+        animatedLineDataItem.set('pointsToConnect', [
+          startDataItem,
+          endDataItem
+        ]);
+        
       });
 
       // let dataTransferSeriesNew = chart.series.push(am5map.MapPointSeries.new(root, {}));
@@ -375,7 +380,7 @@ function DataShareMap({ chartID }: { chartID: string }) {
     return () => {
       root.dispose();
     };
-  }, [chartID, initMap]);
+  }, [chartID]);
 
   function animateStart(startDataItem: any, endDataItem: any, duration: any) {
     let startAnimation = startDataItem.animate({
@@ -402,7 +407,7 @@ function DataShareMap({ chartID }: { chartID: string }) {
     });
 
     endAnimation.events.on('stopped', function () {
-      // animateStart(startDataItem, endDataItem, duration);
+      animateEnd(endDataItem, startDataItem, duration);
     });
   }
 
@@ -464,7 +469,7 @@ function DataShareMap({ chartID }: { chartID: string }) {
           longitude: (bounds.east + bounds.west) / 2,
           latitude: (bounds.north + bounds.south) / 2
         },
-        5
+        4
       );
     });
   };

@@ -20,22 +20,43 @@ import { IconCheck, IconCircleCheck } from '@tabler/icons-react';
 import { toast } from 'sonner';
 import ConsentShare from '@/features/maps/consent-share';
 import DataShare from '@/features/maps/data-share';
+import FinanceShare from '@/features/maps/finance-share';
+import TaxShare from '@/features/maps/tax-share';
+import CreditShare from '@/features/maps/credit-share';
+import Computation from '@/features/maps/computation';
+import FinalStep from '@/features/maps/final-step';
+import FirstStep from '@/features/maps/first-step';
 
 const steps = [
   {
+    id: 0,
+    title: 'Loan Application',
+    description: 'Review loan application status'
+  },
+  {
     id: 1,
-    title: 'Sharing Consent',
-    description: 'Sharing approved consent by user from LoanConnect to SME bank'
+    title: 'Sharing Encrypted Consent',
+    description: 'Approved consent is encrypted and shared from LoanConnect to SME bank'
   },
   {
     id: 2,
-    title: 'Consent',
-    description: 'Review and provide consent for data access and processing'
+    title: 'Sharing Encrypted Financial Data',
+    description: 'Encrypted financial data is shared from SME bank to LoanConnect'
   },
   {
     id: 3,
-    title: 'Data Upload',
-    description: 'Upload required documents and supporting materials'
+    title: 'Sharing Encrypted Tax Data',
+    description: 'Encrypted tax data is shared from Tax Authorities to LoanConnect'
+  },
+  {
+    id: 4,
+    title: 'Sharing Encrypted Credit Data',
+    description: 'Encrypted credit data is shared from Credit Bureaus to LoanConnect'
+  },
+  {
+    id: 5,
+    title: 'Computation of Encrypted data',
+    description: 'Below Insights are generated on the encrypted data received from multiple data sources'
   }
 ];
 
@@ -47,8 +68,10 @@ export default function LoanSubmitDialog({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [loan, setLoan] = useState<Loan | null>(null);
   const { getLoans, clearLoans } = useLoanActions();
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const loans = getLoans();
+
+  const [loanStatus, setLoanStatus] = useState<string>('pending');
 
   useEffect(() => {
     if (loans.length > 0) {
@@ -59,45 +82,66 @@ export default function LoanSubmitDialog({
 
   const handleSubmit = async (loan: Loan) => {
     setIsSubmitting(true);
+
+    setTimeout(async () => {
+      try {
+        const requestData = {
+          type: loan.type,
+          amount: loan.amount,
+          purpose: loan.type,
+          status: "pending",
+          interest_rate_min: loan.interest_rate_min,
+          interest_rate_max: loan.interest_rate_max,
+          duration: 24.0,
+          lending_bank_id: loan.lending_bank_id,
+          sme_id: loan.sme_id,
+          consent_status: loan.consent_status,
+          insights_status: loan.insights_status
+        }
+
+        const response = await apiClient.loans.create(requestData)
+
+        setLoanStatus('submitted');
+        // // Show success message briefly
+        // setTimeout(() => {
+        //     toast.success("Application submitted successfully!")
+        //     // Redirect to appropriate portal
+        //     router.push("/dashboard/applications");
+        // }, 2000)
+
+      } catch (error: any) {
+        if (error.status === 401) {
+          toast.error("Session expired! Please sign in again");
+          router.push("/auth/sign-in");
+          setIsSubmitting(false)
+        }
+        else {
+          toast.error("Something went wrong! Please try again");
+          setIsSubmitting(false)
+        }
+      }
+    }, 2000)
+
+  };
+
+  const startScene = () => {
+    setCurrentStep(1);
     setTimeout(() => {
       setCurrentStep(2);
-    }, 8000);
+    }, 7500);
 
-    // try {
-    //     const requestData = {
-    //         type: loan.type,
-    //         amount: loan.amount,
-    //         purpose: loan.type,
-    //         status: "pending",
-    //         interest_rate_min: loan.interest_rate_min,
-    //         interest_rate_max: loan.interest_rate_max,
-    //         duration: 24.0,
-    //         lending_bank_id: loan.lending_bank_id,
-    //         sme_id: loan.sme_id,
-    //         consent_status: loan.consent_status,
-    //         insights_status: loan.insights_status
-    //     }
+    setTimeout(() => {
+      setCurrentStep(3);
+    }, 15000);
 
-    //     const response = await apiClient.loans.create(requestData)
-    //     // Show success message briefly
-    //     setTimeout(() => {
-    //         toast.success("Application submitted successfully!")
-    //         // Redirect to appropriate portal
-    //         router.push("/dashboard/applications");
-    //     }, 2000)
+    setTimeout(() => {
+      setCurrentStep(4);
+    }, 22500);
 
-    // } catch (error: any) {
-    //     if (error.status === 401) {
-    //         toast.error("Session expired! Please sign in again");
-    //         router.push("/auth/sign-in");
-    //         setIsSubmitting(false)
-    //     }
-    //     else {
-    //         toast.error("Something went wrong! Please try again");
-    //         setIsSubmitting(false)
-    //     }
-    // }
-  };
+    setTimeout(() => {
+      setCurrentStep(5);
+    }, 30000);
+  }
 
   // Create a multi step dialog with change in state for a custom interval
 
@@ -115,12 +159,12 @@ export default function LoanSubmitDialog({
           <DialogTitle>
             {!isSubmitting
               ? 'Submit Application'
-              : `${steps[currentStep - 1].title}`}
+              : `${steps[currentStep].title}`}
           </DialogTitle>
           <DialogDescription>
             {!isSubmitting
               ? 'Review loan application details below'
-              : `${steps[currentStep - 1].description}`}
+              : `${steps[currentStep].description}`}
           </DialogDescription>
         </DialogHeader>
 
@@ -212,11 +256,21 @@ export default function LoanSubmitDialog({
               </Button>
             </DialogFooter>
           </>
-        ) : currentStep === 1 ? (
-          <ConsentShare />
-        ) : (
-          <DataShare />
-        )}
+        ) :
+          currentStep === 0 ? (
+            <FirstStep startScene={startScene} />
+          ) :
+            currentStep === 1 ? (
+              <ConsentShare />
+            ) : currentStep === 2 ? (
+              <FinanceShare />
+            ) : currentStep === 3 ? (
+              <TaxShare />
+            ) : currentStep === 4 ? (
+              <CreditShare />
+            ) : (
+              <FinalStep />
+            )}
       </DialogContent>
     </Dialog>
   );
