@@ -52,7 +52,8 @@ Vist the deployed platform [here](https://sl-compute-app.silencelaboratories.com
 
 ### Bank Portal
 
-<img width="546" height="560" alt="Screenshot 2025-10-11 at 12 43 25 AM" src="https://github.com/user-attachments/assets/f880a8a4-d7b6-4d41-9151-cd5e7b505dbe" />
+<img width="1059" height="558" alt="Screenshot 2025-10-11 at 12 55 41 AM" src="https://github.com/user-attachments/assets/378b9441-c155-4d08-83d8-15fe3d3cc20a" />
+
 
 <hr />
 
