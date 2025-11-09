@@ -14,7 +14,7 @@ cp env-template.txt src/.env
 ./scripts/init-pgsql.sh
 
 # 4. Run migrations
-uv run alembic upgrade head
+cd src && uv run alembic upgrade head
 
 # 5. Start server
 uv run uvicorn src.app.main:app --reload --host 0.0.0.0 --port 8000

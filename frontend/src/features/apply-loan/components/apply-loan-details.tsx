@@ -159,13 +159,19 @@ export default function ApplyLoanDetails({
         updateLoan(loans[0].id, {
           ...loans[0],
           bank_name: selectedBank?.name || '',
-          country: selectedCountry
+          country: selectedCountry,
+          type: selectedFinancingType,
+          purpose: selectedFinancingType,
+          amount: amount
         });
       } else {
         createLoan({
           ...requestData,
           bank_name: selectedBank?.name || '',
-          country: selectedCountry
+          country: selectedCountry,
+          type: selectedFinancingType,
+          purpose: selectedFinancingType,
+          amount: amount
         });
       }
       // Show success message briefly
