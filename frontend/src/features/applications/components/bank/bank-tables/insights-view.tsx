@@ -107,7 +107,7 @@ export default function LenderAssessmentDashboard({ loan }: { loan: any }) {
                     <IconExclamationMark className='h-3 w-3 text-green-600 dark:text-green-400' />
                   </div>
                   <p className='text-sm text-green-800 dark:text-green-200'>
-                    All the data processing and inferences generation are performed on encrypted data using privacy-preserving techniques
+                    All the data processing and inferences generation are performed on encrypted data using privacy-preserving technology
                   </p>
                 </div>
               </div>

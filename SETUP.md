@@ -1,6 +1,8 @@
 # Quick Setup Guide
 
-This is a condensed setup guide. For detailed instructions, see [README.md](README.md).
+This is a condensed setup guide. 
+
+For an overview, see [README.md](README.md).
 
 **Setup Time:** ~10 minutes (excluding Google OAuth setup)
 
@@ -102,6 +104,7 @@ Required for authentication to work:
    ```bash
    curl http://localhost:8000/docs
    ```
+   - You should see the docs page serving
 
 2. **Frontend:**
    - Open http://localhost:3000
@@ -170,5 +173,10 @@ docker-compose up -d
 cd frontend
 docker-compose up -d
 ```
+The dockerfiles for your reference:
+- [Backend Dockerfile](../backend/Dockerfile)
+- [Frontend Dockerfile](../frontend/Dockerfile)
 
-**Happy Coding! 🚀**
+Now the configuration is complete and you are all set.
+
+**Time to Compute! 🚀**
