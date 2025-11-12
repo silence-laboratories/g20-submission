@@ -174,8 +174,8 @@ cd frontend
 docker-compose up -d
 ```
 The dockerfiles for your reference:
-- [Backend Dockerfile](../backend/Dockerfile)
-- [Frontend Dockerfile](../frontend/Dockerfile)
+- [Backend Dockerfile](backend/Dockerfile)
+- [Frontend Dockerfile](frontend/Dockerfile)
 
 Now the configuration is complete and you are all set.
 

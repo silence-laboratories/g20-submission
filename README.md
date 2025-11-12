@@ -78,3 +78,5 @@ Follow this quick setup guide, **[SETUP.md](SETUP.md)**, to run the application 
 ## License
 
 See [LICENSE](LICENSE) file for details.
+
+**Time to Compute! 🚀**
